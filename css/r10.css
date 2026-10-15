@@ -1,0 +1,735 @@
+/* The Talent Dept. · site, round 9: the design foundation (static).
+   Brief (client, 14 Oct 2026): static design and structure only, no animation or interactions. Softer editorial
+   direction: mid-century modern minimalism meets Pentagram, a little Eames. Principles, not retro: proportion,
+   simple geometry, warmth, negative space, quiet restraint. Warm tan grounds, hints of black and coral, oversized
+   type, clean compositions; balance about 70% tan, 30% black. Logo larger, on the left; the menu grouped right.
+   Brand Standards: Draft (tan), Ink, Cream, Signal (coral). Helvetica Neue, Light 300 and Medium 500. */
+:root{
+  --tan:#E7DECF; --tan2:#DCCFBA; --light:#F3EEE6; --draft:#C7B394; --paper:#FBF9F4; --cream:#F2EEE5; --ink:#171614; --coral:#D65A4A;
+  --ink70:#5A5348;                 /* secondary text on the soft tan */
+  --tan-ink:#8A7D66;               /* Draft at rest on ink */
+  --hair:rgba(23,22,20,.26); --hair-n:rgba(199,179,148,.28);
+  --m:max(20px,4.4vw); --g:max(12px,1.6vw);
+  --f:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --body:clamp(16px,1.2vw,20px); --small:clamp(13px,.92vw,15px);
+  --d1:clamp(40px,4.6vw,88px); --d2:clamp(32px,3.4vw,64px); --d3:clamp(24px,2.2vw,42px); --d4:clamp(18px,1.4vw,26px);
+}
+*{box-sizing:border-box}
+html{background:var(--tan);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--tan);color:var(--ink);font:300 var(--body)/1.45 var(--f);letter-spacing:.002em;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,p,ol,ul,figure,dl,dd{margin:0;padding:0;font-weight:inherit}
+ol,ul{list-style:none}
+b,strong{font-weight:500}
+i{font-style:normal;color:var(--coral);font-weight:400}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* type */
+.d1{font-size:var(--d1);line-height:1;letter-spacing:-.022em}
+.d2{font-size:var(--d2);line-height:1.02;letter-spacing:-.02em}
+.d3{font-size:var(--d3);line-height:1.08;letter-spacing:-.014em}
+.d4{font-size:var(--d4);line-height:1.18;letter-spacing:-.008em}
+.lab{font-weight:500}
+.sm{font-size:var(--small);line-height:1.4}
+.mute{color:var(--ink70)}
+.go{font-weight:500;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.go::after{content:" \2192"}
+
+/* grid and zones: A caption, B text, C text */
+.wrap{padding:0 var(--m)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g)}
+.zA{grid-column:1/6} .zB{grid-column:6/10} .zC{grid-column:10/13} .zBC{grid-column:6/13}
+.rule{height:1px;background:var(--hair)}
+.sec{padding:20vh var(--m) 0}
+@media (max-width:760px){ .grid{display:block} .grid>*+*{margin-top:18px} .sec{padding-top:110px} }
+
+/* ---- nav: a large logo on the left, the whole menu grouped on the right, on Line of Sight bars */
+.nav{display:flex;justify-content:space-between;align-items:center;padding:clamp(18px,2vw,34px) var(--m)}
+.nav .logo{display:block;line-height:0}
+.nav .logo img{height:clamp(58px,6.4vw,104px);width:auto}
+.nav ul{display:flex;gap:6px}
+.nav ul a{display:block;font-size:clamp(14px,1.04vw,17px);font-weight:500;line-height:1;padding:.78em 1.05em .72em;background:var(--paper);color:var(--ink);text-decoration:none}
+.nav ul a.on{background:var(--ink);color:var(--cream)}
+.on-ink .nav ul a{background:#2B2926;color:var(--cream)}
+/* the minimal version: words only, one coral full stop after the page you are on */
+.nav-min .nav ul a{background:none!important;color:inherit!important;padding:.4em .35em;font-weight:300}
+.nav-min .nav ul a.on{font-weight:500}
+.nav-min .nav ul a.on::after{content:"";display:inline-block;width:.27em;height:.27em;background:var(--coral);margin-left:.06em}
+@media (max-width:760px){ .nav ul{gap:4px} .nav ul a{padding:.7em .7em .64em;font-size:13px} }
+
+/* ---- hero: a still frame of Line of Sight */
+.hero{min-height:100vh;display:flex;flex-direction:column}
+.hero h1{padding:13vh var(--m) 0;max-width:15.6em;font-weight:300}
+.hero .los{margin-top:auto;padding:8vh 0 9vh}
+.hero .los svg{width:100%;height:auto}
+.hero .cap{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:0 var(--m) 4vh}
+.hero .cap p:first-child{grid-column:1/6}
+.hero .cap p:last-child{grid-column:10/13}
+@media (max-width:760px){ .hero h1{padding-top:12vh} .hero .cap{display:block} .hero .cap p+p{margin-top:6px} }
+
+/* ---- the statement */
+.stmt .lead{grid-column:4/13}
+.stmt .mark{grid-column:1/3;display:grid;row-gap:6px;width:40px;align-self:start;align-content:start;margin-top:.9em}
+.stmt .mark i{display:block;height:6px;background:var(--ink)}
+.stmt .mark i:nth-child(2){width:80%} .stmt .mark i:nth-child(3){width:56%}
+.stmt .below{margin-top:12vh;align-items:start}
+.stmt .by{grid-column:3/6;text-align:right;justify-self:end}
+.stmt .pic{grid-column:6/8}
+.stmt .pic img{width:100%;aspect-ratio:1/1;object-fit:cover;filter:grayscale(1)}
+.stmt .para{grid-column:8/12}
+.stmt .para .go{display:inline-block;margin-top:1.6em}
+@media (max-width:760px){ .stmt .by{text-align:left} .stmt .pic{width:50%} }
+
+/* ---- the two people in chairs, with the message behind them (black) */
+.chairs{position:relative;height:100vh;min-height:620px;overflow:hidden;background:var(--ink);margin-top:20vh}
+.chairs .msg{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);z-index:1}
+.chairs .msg p{white-space:nowrap;font-size:12.4vw;line-height:.95;letter-spacing:-.025em;color:var(--tan-ink)}
+.chairs .msg p:first-child{margin-left:-6vw}
+.chairs .msg p:last-child{margin-left:-31vw}
+.chairs figure{position:absolute;left:50%;top:50%;width:min(40vw,72vh);transform:translate(-50%,-50%);z-index:2}
+.chairs figure img{width:100%;aspect-ratio:1.62/1;object-fit:cover;filter:grayscale(1)}
+.chairs .note{position:absolute;left:var(--m);right:var(--m);bottom:4vh;z-index:3;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);color:var(--tan)}
+.chairs .note p:first-child{grid-column:1/6} .chairs .note p:last-child{grid-column:10/13}
+@media (max-width:760px){ .chairs figure{width:78vw} .chairs .msg p{font-size:19vw} .chairs .note{display:block} }
+
+/* ---- how we show up: three icons on one ground line */
+.ways .trio{margin-top:7vh;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--g)}
+.ways .ico{height:clamp(110px,11vw,200px);display:flex;align-items:flex-end;border-bottom:1px solid var(--hair);padding-bottom:0}
+.ways .ico svg{height:100%;width:auto}
+.ways h3{margin-top:4.2vh;font-weight:300}
+.ways .trio p{margin-top:1.2em;max-width:20em}
+.ways .go{display:inline-block;margin-top:9vh}
+@media (max-width:760px){ .ways .trio{grid-template-columns:1fr;row-gap:48px} }
+
+/* ---- services */
+.svc .idx{margin-top:5vh}
+.svc .idx li{border-top:1px solid var(--hair);padding:1.35vw 0 1.45vw;align-items:baseline}
+.svc .idx li:last-child{border-bottom:1px solid var(--hair)}
+.svc .idx .nm{grid-column:1/6;font-weight:300}
+.svc .idx .ds{grid-column:6/11}
+.svc .tail{margin-top:5vh;align-items:baseline}
+@media (max-width:760px){ .svc .idx li{padding:16px 0} .svc .idx li>*+*{margin-top:6px} }
+
+/* ---- where the work happens: the icons as a street */
+.street .art{margin-top:6vh}
+.street .art svg{width:100%;height:auto}
+.street .grid{margin-top:2.4vh}
+
+/* ---- the people */
+.ppl .six{margin-top:6vh;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));column-gap:var(--g);row-gap:5vh}
+.ppl .six img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 14%;filter:grayscale(1)}
+.ppl .six p{margin-top:.9em}
+.ppl .six p+p{margin-top:.1em}
+.ppl .tail{margin-top:7vh}
+@media (max-width:760px){ .ppl .six{grid-template-columns:repeat(2,minmax(0,1fr))} }
+
+/* ---- footer (black) */
+.foot{background:var(--ink);color:var(--cream);padding:18vh var(--m) 3vh;margin-top:20vh}
+.foot h2{color:var(--tan-ink);font-weight:300}
+.foot h2 b{color:var(--cream)}
+.foot .field{margin:8vh calc(-1*var(--m)) 0}
+.foot .field svg{width:100%;height:auto}
+.foot .rule{background:var(--hair-n);margin-top:8vh}
+.foot .grid{padding-top:1.2vw}
+.foot .mute{color:var(--tan)}
+.foot .mail{font-size:var(--d4);letter-spacing:-.018em;text-decoration:none;border-bottom:1px solid var(--hair-n)}
+.foot .links{display:grid;row-gap:.3em}
+.foot .links a{text-decoration:none}
+.foot .base{margin-top:14vh;align-items:end}
+.foot .base img{height:clamp(58px,6.4vw,104px);width:auto}
+.foot .base .zC{justify-self:end;text-align:right}
+
+/* ---- inner pages */
+.ph{margin-top:16vh}
+.ph img{width:100%;height:80vh;object-fit:cover;filter:grayscale(1)}
+.pg-head{padding:12vh var(--m) 0}
+.pg-head .grid{margin-top:1.2vw}
+.svcs li{border-top:1px solid var(--hair);padding:1.2vw 0 5vw}
+.svcs li h3{grid-column:1/6;font-weight:300}
+.svcs li .b{grid-column:6/10}
+.svcs li .b p+p{margin-top:.6em}
+.svcs li ul{grid-column:10/13}
+.svcs li ul li{border:0;padding:.42em 0;border-top:1px solid var(--hair)}
+.svcs li ul li:first-child{border-top:0;padding-top:0}
+
+.names{background:var(--ink);color:var(--cream);padding:18vh var(--m) 18vh;margin-top:12vh}
+.names h2{font-weight:300;color:var(--tan-ink)}
+.names h2 b{color:var(--cream)}
+.names .rule{background:var(--hair-n);margin-top:4vh}
+.names ol{margin-top:5vh;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--g);row-gap:2.6vh}
+.names li .w{display:block;font-size:var(--d4);line-height:1.15;letter-spacing:-.018em}
+.names li .s{display:block;color:var(--tan);margin-top:.25em}
+@media (max-width:760px){ .names ol{grid-template-columns:1fr} }
+
+/* The Dept. head: one huge word against the centre line, who's who above it, a tall photograph */
+.jk{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);grid-template-rows:auto 1fr auto auto;min-height:calc(100vh - 140px);padding:4vh var(--m) 6vh}
+.jk-meta{grid-column:3/8;grid-row:1;justify-self:end;text-align:right;display:grid;row-gap:.85em}
+.jk-meta dt{font-weight:500}
+.jk-meta a{text-decoration:none}
+.jk-pic{grid-column:8/12;grid-row:1/4}
+.jk-pic img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1)}
+.jk-word{grid-column:1/8;grid-row:3;justify-self:end;align-self:end;font-size:clamp(64px,10.4vw,200px);line-height:.84;letter-spacing:-.03em;margin-bottom:-.04em;white-space:nowrap}
+.jk-go{grid-column:1/8;grid-row:4;justify-self:end;margin-top:2.6vw}
+.jk-note{grid-column:8/11;grid-row:4;margin-top:2.6vw}
+@media (max-width:760px){ .jk{display:block;min-height:0} .jk-meta{text-align:left} .jk-pic{margin-top:24px} .jk-word{margin-top:28px;font-size:22vw} .jk-go{display:inline-block;margin-top:16px} .jk-note{margin-top:18px} }
+
+/* The Dept.: each person is a page */
+.person{min-height:min(70vw,94vh);display:flex;flex-direction:column;padding:0 var(--m)}
+.person .grid.top{padding-top:1.2vw;align-items:start}
+.person .run{grid-column:1/6}
+.person .txt{grid-column:6/9}
+.person .txt p+p{margin-top:1em}
+.person .pic{grid-column:9/13}
+.person .pic img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 12%;filter:grayscale(1)}
+.person .grid.bot{margin-top:auto;padding:3vw 0 1.4vw;align-items:end}
+.person .b1{grid-column:1/6} .person .b2{grid-column:6/9} .person .b3{grid-column:9/13;justify-self:end}
+.tick::before{content:"";display:inline-block;width:1.1em;height:1px;background:var(--coral);vertical-align:.32em;margin-right:.55em}
+@media (max-width:760px){ .person{min-height:0} .person .grid.bot{padding:24px 0 18px} }
+
+/* Contact: two words split across the top, a rule, the list, a big photograph with a line down its edge */
+.lm{min-height:calc(100vh - 140px);display:flex;flex-direction:column;padding:4vh var(--m) 0}
+.lm-words{display:flex;justify-content:space-between;align-items:baseline}
+.lm .rule{margin-top:1.4vw}
+.lm-body{flex:1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);min-height:58vh}
+.lm-left{grid-column:1/7;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));column-gap:var(--g);align-content:start;padding-top:1.2vw}
+.lm-a{grid-column:1/3} .lm-b{grid-column:3/7}
+.lm-kv{grid-column:1/7;margin-top:6vh;display:grid;row-gap:.3em}
+.lm-kv div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);column-gap:var(--g)}
+.lm-kv .gap{height:1.1em}
+.lm-kv dt{font-weight:500}
+.lm-kv a{text-decoration:none}
+.lm-pic{grid-column:8/12;position:relative;margin-top:1.2vw}
+.lm-pic img{width:100%;height:100%;min-height:56vh;object-fit:cover;filter:grayscale(1)}
+.lm-pic .steps i{position:absolute;width:1.2vw;height:1.2vw;background:var(--coral)}
+.lm-pic .steps i:nth-child(1){right:0;bottom:1.2vw} .lm-pic .steps i:nth-child(2){right:-1.2vw;bottom:0}
+.lm-vert{grid-column:12/13;justify-self:end;writing-mode:vertical-rl;text-transform:uppercase;font-size:12px;letter-spacing:.06em;font-weight:500;padding-top:1.2vw;white-space:nowrap}
+.lm-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));column-gap:var(--g);padding:5vh 0 3vh;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink70)}
+.lm-strip span:last-child{justify-self:end}
+@media (max-width:760px){ .lm-words{display:block} .lm-words span{display:block} .lm-body,.lm-left{display:block} .lm-left>*+*{margin-top:14px} .lm-kv div{grid-template-columns:1fr} .lm-pic{margin-top:28px} .lm-vert{display:none} .lm-strip{grid-template-columns:1fr 1fr;row-gap:8px} .lm-strip span:last-child{justify-self:start} }
+@media (max-width:760px){ .hero .los{overflow:hidden} .hero .los svg{width:250%;max-width:none;margin-left:-105%} }
+
+/* =====================================================================================
+   v2, after Woodwrights and XOO: soft tan sections, text beside one large photograph, small uppercase labels and
+   short numbered lists, a spaced row of photographs, a product split, an index with hairlines and counts.
+   ===================================================================================== */
+.cap-u{font-size:12px;line-height:1.45;font-weight:500;text-transform:uppercase;letter-spacing:.07em}
+.num{display:grid;row-gap:.95em}
+.num li{display:grid;grid-template-columns:3.4em 1fr;font-size:12.5px;line-height:1.4;text-transform:uppercase;letter-spacing:.06em}
+.num li span:first-child{color:var(--ink70)}
+.u{text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+
+/* the statement beside the anchor photograph */
+.split2{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:16vh var(--m) 0;align-items:stretch}
+.split2 .t{grid-column:1/6;display:flex;flex-direction:column}
+.split2 .t .d3{max-width:13em}
+.split2 .t p.body{margin-top:2.2em;max-width:26em}
+.split2 .t .u{align-self:flex-start;margin-top:1.8em}
+.split2 .t .lst{margin-top:auto;padding-top:10vh}
+.split2 .t .lst .cap-u{margin-bottom:2.2em}
+.split2 figure{grid-column:7/13}
+.split2 figure img{width:100%;height:100%;min-height:88vh;object-fit:cover;filter:grayscale(1)}
+@media (max-width:760px){ .split2{display:block;padding-top:100px} .split2 figure{margin-top:36px} .split2 figure img{min-height:60vh} }
+
+/* our approach: title, numbered list, paragraph, then a spaced row of photographs */
+.approach{margin-top:20vh;padding:16vh var(--m) 18vh;background:var(--tan2)}
+.approach .top{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:start}
+.approach h2{grid-column:1/5;font-weight:300}
+.approach .num{grid-column:6/9}
+.approach .num li{grid-template-columns:3.4em 1fr}
+.approach .num li b{display:block;font-weight:500}
+.approach .num li em{display:block;font-style:normal;text-transform:none;letter-spacing:0;font-size:var(--small);color:var(--ink70);margin-top:.35em}
+.approach .para{grid-column:9/13}
+.approach .para .u{display:inline-block;margin-top:1.6em}
+.approach .row4{margin-top:16vh;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:start}
+.approach .row4 figure img{width:100%;object-fit:cover;filter:grayscale(1)}
+.approach .row4 .f1{grid-column:1/5} .approach .row4 .f1 img{aspect-ratio:3/2}
+.approach .row4 .f2{grid-column:6/8} .approach .row4 .f2 img{aspect-ratio:3/4}
+.approach .row4 .f3{grid-column:8/10} .approach .row4 .f3 img{aspect-ratio:3/4}
+.approach .row4 .f4{grid-column:11/13} .approach .row4 .f4 img{aspect-ratio:3/4}
+@media (max-width:760px){ .approach .top,.approach .row4{display:block} .approach .top>*+*{margin-top:28px} .approach .row4 figure+figure{margin-top:14px} }
+
+/* the product split: a big photograph left, the words low on the right */
+.feat{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:20vh var(--m) 0;align-items:end}
+.feat figure{grid-column:1/8}
+.feat figure img{width:100%;aspect-ratio:7/5;object-fit:cover;filter:grayscale(1)}
+.feat figure figcaption{margin-top:.8em}
+.feat .t{grid-column:9/13;padding-bottom:6vh}
+.feat .t p.body{margin-top:1.6em}
+.feat .t .u{display:inline-block;margin-top:1.8em}
+@media (max-width:760px){ .feat{display:block;padding-top:100px} .feat .t{margin-top:28px} }
+
+/* the index (after XOO): each show, its guests, and how many */
+.index{background:var(--ink);color:var(--cream);padding:16vh var(--m) 18vh;margin-top:20vh}
+.index .hd{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:end;margin-bottom:6vh}
+.index .hd h2{grid-column:1/9;font-weight:300;color:var(--tan-ink)} .index .hd h2 b{color:var(--cream)}
+.index .hd p{grid-column:10/13;justify-self:end;color:var(--draft)}
+.index ol li{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:baseline;padding:1.05vw 0;border-top:1px solid var(--hair-n)}
+.index ol li:last-child{border-bottom:1px solid var(--hair-n)}
+.index ol li .sh{grid-column:1/6}
+.index ol li .gu{grid-column:6/12;color:var(--draft)}
+.index ol li .n{grid-column:12/13;justify-self:end;font-variant-numeric:tabular-nums}
+@media (max-width:760px){ .index .hd{display:block} .index .hd p{margin-top:10px} .index ol li{display:block;padding:14px 0} .index ol li .gu{margin-top:4px} .index ol li .n{margin-top:4px} }
+
+/* the people, beside the words (after the showroom block) */
+.ppl2{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:20vh var(--m) 0;align-items:start}
+.ppl2 .t{grid-column:1/5}
+.ppl2 .t .u{display:inline-block;margin-top:1.8em}
+.ppl2 .g{grid-column:6/13;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--g);row-gap:4vh}
+.ppl2 .g img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 14%;filter:grayscale(1)}
+.ppl2 .g p{margin-top:.75em}
+@media (max-width:760px){ .ppl2{display:block;padding-top:100px} .ppl2 .g{margin-top:28px;grid-template-columns:repeat(2,minmax(0,1fr))} }
+
+/* =====================================================================================
+   v3: cleaner, more air. Two grounds alternate in calm bands (soft tan and a tan-white, Draft at 15% over Paper),
+   every section has generous room above and below, and one confident number carries the work.
+   ===================================================================================== */
+.band-t{background:var(--tan)} .band-l{background:var(--light)}
+.split2,.feat,.ppl2{padding-top:26vh;padding-bottom:26vh}
+.split2 figure img{min-height:82vh}
+.split2 .t{justify-content:center}
+.approach{margin-top:0;padding:28vh var(--m) 28vh;background:var(--tan)}
+.chairs{margin-top:0}
+.street{padding-top:26vh;padding-bottom:22vh}
+.foot{margin-top:0}
+.hero .cap p:last-child{display:none}
+
+/* the number: one oversized figure and the names as a single quiet line */
+.count{background:var(--ink);color:var(--cream);padding:24vh var(--m) 24vh;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:end}
+.count .big{grid-column:1/8;font-size:min(36vw,64vh);line-height:.74;letter-spacing:-.045em;font-weight:300;color:var(--cream);margin-left:-.06em}
+.count .t{grid-column:8/13;padding-bottom:1.2vh}
+.count .t h2{font-weight:300;color:var(--tan-ink)} .count .t h2 b{color:var(--cream)}
+.count .t p.names{margin-top:2.4em;color:var(--draft);line-height:1.7}
+.count .t .u{display:inline-block;margin-top:2.2em;color:var(--cream)}
+@media (max-width:760px){ .count{display:block;padding:120px var(--m)} .count .big{font-size:52vw} .count .t{margin-top:28px} }
+
+@media (max-width:760px){ .split2,.feat,.ppl2,.approach,.street{padding-top:110px;padding-bottom:110px} }
+
+/* =====================================================================================
+   v4, page by page: the same calm bands, generous air and one moment of scale on every page.
+   ===================================================================================== */
+/* The Work */
+.wk-head{padding:12vh var(--m) 24vh}
+.wk-head .grid{margin-top:12vh;align-items:start}
+.wk-head .zA{grid-column:1/5} .wk-head .zB{grid-column:6/10} .wk-head .zC{grid-column:10/13}
+.wk-photo img{width:100%;height:86vh;object-fit:cover;filter:grayscale(1)}
+.wk-what{padding:26vh var(--m) 26vh}
+.wk-what .top{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:end}
+.wk-what .big{grid-column:1/7;font-size:min(30vw,56vh);line-height:.74;letter-spacing:-.045em;font-weight:300;margin-left:-.06em}
+.wk-what .top .t{grid-column:8/13;padding-bottom:1vh}
+.wk-what .top .t p+p{margin-top:1.4em}
+.wk-what ol{margin-top:20vh}
+.wk-what ol>li{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);border-top:1px solid var(--hair);padding:5.5vh 0 7vh;align-items:start}
+.wk-what ol>li:last-child{border-bottom:1px solid var(--hair)}
+.wk-what ol>li h3{grid-column:1/6;font-weight:300}
+.wk-what ol>li .b{grid-column:7/13}
+.wk-what ol>li .b p+p{margin-top:.7em}
+.wk-what ol>li .b .items{margin-top:1.6em;color:var(--ink70);line-height:1.7}
+.wk-close{padding:28vh var(--m) 28vh}
+.wk-close h2{max-width:14em;font-weight:300}
+.wk-close .u{display:inline-block;margin-top:2.6em}
+@media (max-width:760px){ .wk-head .grid,.wk-what .top,.wk-what ol>li{display:block} .wk-head .grid>*+*,.wk-what ol>li>*+*{margin-top:16px}
+  .wk-what .big{font-size:48vw} .wk-what .top .t{margin-top:24px} .wk-what,.wk-close{padding:110px var(--m)} .wk-what ol{margin-top:60px} .wk-photo img{height:60vh} }
+
+/* The Dept.: people as alternating bands, no rules, room to breathe */
+.person.band{min-height:0;padding:18vh var(--m) 4vh}
+.person.band .grid.top{padding-top:0}
+.person.band .grid.bot{margin-top:14vh}
+@media (max-width:760px){ .person.band{padding:90px var(--m) 20px} .person.band .grid.bot{margin-top:40px} }
+
+/* Contact: the main address is the focal point */
+.lm{padding-bottom:0}
+.lm-body{min-height:64vh;margin-top:0}
+.lm-left{padding-top:4vh}
+.lm-main{grid-column:1/7;margin-top:8vh}
+.lm-main a{font-size:var(--d3);letter-spacing:-.014em;line-height:1.1;text-decoration:none;border-bottom:1px solid var(--hair)}
+.lm-kv{margin-top:9vh;row-gap:.55em}
+.lm-pic{margin-top:4vh}
+.lm-strip{padding:9vh 0 4vh}
+@media (max-width:760px){ .lm-main{margin-top:32px} .lm-main a{font-size:26px} }
+
+/* the chairs, readable: three words stacked, the photograph overlapping only the end of the longest one */
+.chairs2{background:var(--ink);color:var(--cream);padding:24vh var(--m) 16vh;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g)}
+.chairs2 .words{grid-column:1/13;grid-row:1;position:relative;z-index:1;font-size:8.6vw;line-height:.93;letter-spacing:-.022em;font-weight:300;color:var(--tan-ink)}
+.chairs2 .words span{display:block}
+.chairs2 figure{grid-column:8/13;grid-row:1;align-self:end;position:relative;z-index:2;margin-bottom:.4vw}
+.chairs2 figure img{width:100%;aspect-ratio:1.62/1;object-fit:cover;filter:grayscale(1)}
+.chairs2 .foot2{grid-column:1/13;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);margin-top:12vh;align-items:baseline}
+.chairs2 .foot2 .d4{grid-column:1/8;color:var(--cream)}
+.chairs2 .foot2 .cap-u{grid-column:8/13;color:var(--draft)}
+@media (max-width:760px){ .chairs2{display:block;padding:110px var(--m)} .chairs2 .words{font-size:15vw} .chairs2 figure{margin-top:28px} .chairs2 .foot2{display:block;margin-top:40px} .chairs2 .foot2 .cap-u{margin-top:10px} }
+
+/* how we show up: three equal columns, each icon on one shared ground line */
+.ways2{padding:26vh var(--m) 26vh}
+.ways2 .trio{margin-top:12vh;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:4.4vw}
+.ways2 .ico{height:clamp(96px,9.4vw,180px);display:flex;align-items:flex-end;border-bottom:1px solid var(--hair)}
+.ways2 .ico svg{height:100%;width:auto}
+.ways2 .n{display:block;margin-top:4.2vh}
+.ways2 h3{margin-top:1.4vh;font-weight:300}
+.ways2 h3 i{color:var(--ink)}
+.ways2 .trio p{margin-top:1.3em;max-width:21em}
+.ways2 .close{margin-top:20vh;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:baseline;border-top:1px solid var(--hair);padding-top:3.4vh}
+.ways2 .close .d3{grid-column:1/9}
+.ways2 .close .zC{grid-column:10/13;justify-self:end}
+@media (max-width:760px){ .ways2{padding:110px var(--m)} .ways2 .trio{grid-template-columns:1fr;row-gap:56px} .ways2 .close{display:block} .ways2 .close .zC{margin-top:14px} }
+
+/* =====================================================================================
+   v5: scale and grids. Type comes down; three deliberate moments stay oversized (21, 07, The Dept.).
+   Each section has its own grid.
+   ===================================================================================== */
+/* hero as a poster: the Line of Sight field on the right, the line set to the left of it */
+.hero2{min-height:100vh;display:flex;flex-direction:column}
+.hero2 .hg{flex:1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);grid-template-rows:1fr auto;padding:6vh var(--m) 4.5vh;row-gap:6vh}
+.hero2 .fld{grid-column:5/13;grid-row:1;align-self:center}
+.hero2 .fld svg{width:100%;height:auto}
+.hero2 h1{grid-column:1/5;grid-row:1;align-self:center;font-weight:300;max-width:9.6em;padding-right:1vw}
+.hero2 .l{grid-column:1/5;grid-row:2} .hero2 .r{grid-column:5/13;grid-row:2}
+@media (max-width:760px){ .hero2 .hg{display:block;padding-top:8vh} .hero2 h1{margin-top:6vh} .hero2 .fld{margin-top:6vh} .hero2 .r{margin-top:6px} }
+
+/* statement: the photograph on the left now, the words offset to the right */
+.split3{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:26vh var(--m);align-items:center}
+.split3 figure{grid-column:1/6}
+.split3 figure img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1)}
+.split3 .t{grid-column:7/12}
+.split3 .t p.body{margin-top:2em;max-width:28em}
+.split3 .t .u{display:inline-block;margin-top:1.8em}
+@media (max-width:760px){ .split3{display:block;padding:110px var(--m)} .split3 .t{margin-top:32px} }
+
+/* how we show up: the three step down like a staircase */
+.ways2 .trio article:nth-child(2){padding-top:9vh}
+.ways2 .trio article:nth-child(3){padding-top:18vh}
+.ways2 .ico{height:clamp(80px,6.6vw,128px)}
+@media (max-width:760px){ .ways2 .trio article:nth-child(n){padding-top:0} }
+
+/* the feature: words on the left, the photograph to the right */
+.feat2{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:26vh var(--m);align-items:end}
+.feat2 .t{grid-column:1/5;padding-bottom:1vh}
+.feat2 .t p.body{margin-top:1.8em;max-width:24em}
+.feat2 .t .u{display:inline-block;margin-top:1.8em}
+.feat2 figure{grid-column:6/13}
+.feat2 figure img{width:100%;aspect-ratio:3/2;object-fit:cover;filter:grayscale(1)}
+@media (max-width:760px){ .feat2{display:block;padding:110px var(--m)} .feat2 figure{margin-top:32px} }
+
+/* the street: narrower, its caption to the side */
+.street2{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:26vh var(--m) 24vh;align-items:end}
+.street2 .cap{grid-column:1/4;padding-bottom:.6vh}
+.street2 .cap .d4{margin-top:.8em}
+.street2 .art{grid-column:5/13}
+.street2 .art svg{width:100%;height:auto}
+@media (max-width:760px){ .street2{display:block;padding:110px var(--m)} .street2 .art{margin-top:28px} }
+
+/* the people: the founder large, the rest of the department small beside her */
+.ppl3{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:26vh var(--m);align-items:start}
+.ppl3 .t{grid-column:1/4}
+.ppl3 .t .u{display:inline-block;margin-top:1.8em}
+.ppl3 .lead{grid-column:5/9}
+.ppl3 .lead img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 14%;filter:grayscale(1)}
+.ppl3 .rest{grid-column:9/13;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--g);row-gap:3vh}
+.ppl3 .rest img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 14%;filter:grayscale(1)}
+.ppl3 p{margin-top:.7em}
+.ppl3 a{text-decoration:none}
+@media (max-width:760px){ .ppl3{display:block;padding:110px var(--m)} .ppl3 .lead{margin-top:28px} .ppl3 .rest{margin-top:24px} }
+
+/* footer: the line field shorter */
+.foot .field{margin-top:7vh}
+@media (max-width:760px){ .hero2 .hg{display:flex;flex-direction:column;justify-content:center} .hero2 .fld{margin-top:7vh} .hero2 .l{margin-top:auto;padding-top:8vh} }
+@media (max-width:760px){ .hero2 h1,.hero2 .fld{align-self:stretch} }
+
+/* =====================================================================================
+   v6, creative: the work says something only The Talent Dept. could say.
+   ===================================================================================== */
+/* the hero, three still frames (?hero=2, ?hero=3); 1 = the presence */
+.hero3{min-height:100vh;position:relative;overflow:hidden}
+.hero3 .hv{display:none}
+html:not(.h2):not(.h3) .hero3 .hv1,html.h2 .hero3 .hv2,html.h3 .hero3 .hv3{display:flex}
+.hv1{flex-direction:column;min-height:calc(100vh - clamp(94px,10.4vw,172px))}
+.hv1 h1{padding:9vh var(--m) 0;max-width:13em;font-weight:300}
+.hv1 .art{margin-top:auto;padding-top:6vh}
+.hv1 .art svg{width:100%;height:auto;display:block}
+.hv1 .cap{display:flex;justify-content:space-between;padding:6vh var(--m) 4.5vh}
+.hv2{flex-direction:column;justify-content:space-between;min-height:calc(100vh - clamp(94px,10.4vw,172px))}
+.hv2 .pre{padding:10vh var(--m) 0;font-weight:300}
+.hv2 .giant{white-space:nowrap;font-size:25vw;line-height:.74;letter-spacing:-.03em;margin:0 0 -.12em calc(var(--m) - .05em)}
+.hv2 .giant b{font-weight:500}
+.hv3{position:absolute;inset:0;z-index:0}
+.hv3 .art{position:absolute;inset:0}
+.hv3 .art svg{width:100%;height:100%}
+.hv3 .line{position:absolute;left:var(--m);bottom:7vh;max-width:11em;font-weight:300;z-index:2}
+html.h3 .hero3 .nav{position:relative;z-index:3}
+
+/* More than booking: a scale joke */
+.pun{padding:26vh var(--m);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:end}
+.pun-h{grid-column:1/10;display:flex;align-items:baseline;flex-wrap:wrap;column-gap:.35em;font-weight:300}
+.pun-h .big{font-size:clamp(64px,12.4vw,240px);line-height:.82;letter-spacing:-.035em}
+.pun-h .small{font-size:var(--d4);letter-spacing:-.008em;font-weight:500}
+.pun-b{grid-column:10/13;padding-bottom:1vh}
+.pun-b .num{margin:2em 0 2.4em}
+@media (max-width:760px){ .pun{display:block;padding:110px var(--m)} .pun-b{margin-top:48px} }
+
+/* the names as a waveform (after the radio poster), still */
+.wavenm{background:var(--ink);color:var(--cream);padding:20vh var(--m) 16vh}
+.wavenm .hd{display:flex;justify-content:space-between;align-items:flex-end}
+.wavenm .hd h2{margin-top:.6em;font-weight:300;color:var(--tan-ink)} .wavenm .hd h2 b{color:var(--cream)}
+.wavenm .hd .u{color:var(--cream)}
+.wavenm .wv{height:min(64vh,46vw);margin-top:10vh;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;align-items:center}
+.wavenm .wv .b{display:flex;flex-direction:column;align-items:center}
+.wavenm .wv .b i{display:block;width:clamp(3px,.42vw,8px);background:var(--draft);min-height:4px}
+.wavenm .wv .b i.t{flex:var(--k,1) 1 0} .wavenm .wv .b i.u{flex:calc(2 - var(--k,1)) 1 0}
+.wavenm .wv .b em{writing-mode:vertical-rl;font-style:normal;font-size:clamp(10px,.86vw,15px);line-height:1;letter-spacing:.01em;color:var(--draft);white-space:nowrap;padding:.8em 0;flex:none}
+.wavenm .wv .b.on i{background:var(--coral)} .wavenm .wv .b.on em{color:var(--cream);font-weight:500}
+.wavenm .now{margin-top:6vh;color:var(--draft);border-top:1px solid var(--hair-n);padding-top:2.4vh}
+.wavenm .now b{color:var(--cream);font-weight:500}
+@media (max-width:760px){ .wavenm{padding:110px var(--m) 80px} .wavenm .hd{display:block} .wavenm .hd .u{display:inline-block;margin-top:14px} .wavenm .wv{height:70vh} .wavenm .wv .b i{width:3px} }
+
+/* =====================================================================================
+   v7, after Ashfall, Richard Prescott and "Keep practicing": nearly empty pages, one big element, micro type
+   pinned to corners and edges, small photographs. Micro type in Menlo (the TTD campaign deck's mono).
+   ===================================================================================== */
+.mono{font-family:Menlo,ui-monospace,"SFMono-Regular",monospace;font-size:11px;line-height:1.45;letter-spacing:.04em;text-transform:uppercase;font-weight:400}
+.mono.u{border-bottom:1px solid currentColor;padding-bottom:1px;text-decoration:none}
+.soft{color:var(--ink70)} .soft2{color:#9C927F}
+
+/* the pause: a near-empty page, a small photograph low left, the statement stacked beside it */
+.pause{position:relative;min-height:100vh;padding:var(--m)}
+.pause .tr{position:absolute;top:var(--m);right:var(--m)}
+.pause .bl{position:absolute;left:var(--m);bottom:var(--m);display:flex;align-items:flex-end;gap:2.2vw}
+.pause figure{width:clamp(150px,15vw,260px)}
+.pause figure img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(1)}
+.pause .mt{max-width:24em;display:grid;row-gap:1.4em;padding-bottom:.2em}
+@media (max-width:760px){ .pause{min-height:86vh} .pause .bl{flex-direction:column;align-items:flex-start} }
+
+/* the lockup: words in two tones set low right, micro sentences slipped between them */
+.lock{position:relative;min-height:100vh;padding:var(--m)}
+.lock .tl{display:grid;row-gap:.9em;max-width:22em}
+.lock .lk{position:absolute;right:var(--m);bottom:var(--m);display:grid;grid-template-columns:auto auto auto;column-gap:1.6vw;align-items:center;justify-items:start}
+.lock .w{font-size:clamp(44px,6.4vw,124px);line-height:.9;letter-spacing:-.025em;font-weight:500}
+.lock .w i{color:inherit}
+.lock .a{grid-column:2/4;grid-row:1}
+.lock .m1{grid-column:1/2;grid-row:2;justify-self:end;text-align:right}
+.lock .b{grid-column:2/4;grid-row:2}
+.lock .m2{grid-column:3/4;grid-row:3;justify-self:end;text-align:right}
+.lock .c{grid-column:1/3;grid-row:4;justify-self:end}
+.lock .m3{grid-column:3/4;grid-row:4}
+@media (max-width:760px){ .lock .lk{position:static;margin-top:60px;display:block} .lock .lk>*+*{margin-top:10px} .lock .m1,.lock .m2{text-align:left} }
+
+/* The Work head, after Ashfall: everything on one centre line, micro type at the far edges */
+.ash{display:grid;grid-template-columns:1fr auto 1fr;column-gap:3vw;row-gap:5vh;padding:8vh var(--m) 16vh;align-items:center;justify-items:center;text-align:center}
+.ash-h{grid-column:1/4;font-weight:300}
+.ash-l{grid-column:1;grid-row:2;justify-self:start;text-align:left}
+.ash-p{grid-column:2;grid-row:2;width:clamp(200px,21vw,380px)}
+.ash-p img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1)}
+.ash-r{grid-column:3;grid-row:2;justify-self:end;text-align:right}
+.ash-list{grid-column:1/4;font-size:var(--d2);line-height:1.04;letter-spacing:-.018em;font-weight:300}
+@media (max-width:760px){ .ash{display:block;text-align:center} .ash>*+*{margin-top:28px} .ash-p{margin-left:auto;margin-right:auto} .ash-l,.ash-r{text-align:center} }
+
+/* Contact, after Richard Prescott: one huge line, a narrow centre column of micro lists, corners, a small photo */
+.info{position:relative;min-height:100vh;padding:var(--m);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);grid-template-rows:auto auto 1fr auto;row-gap:3vh}
+.info .top{grid-column:1/13;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.info .top a{justify-self:end;text-decoration:none}
+.info .big{grid-column:1/8;font-size:clamp(64px,10vw,190px);line-height:.86;letter-spacing:-.035em;font-weight:500}
+.info .col{grid-column:5/9;grid-row:3;padding-top:2vh}
+.info .col .k{margin-bottom:.4em}
+.info .sp{grid-column:12/13;grid-row:3;align-self:center}
+.info .sp img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(1)}
+.info .bot{grid-column:1/13;grid-row:4;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end}
+.info .bot span:last-child{justify-self:end;text-align:right}
+@media (max-width:760px){ .info{display:block} .info .top{grid-template-columns:1fr 1fr;row-gap:6px} .info .big{margin-top:40px} .info .col{margin-top:28px} .info .sp{width:40%;margin-top:28px} .info .bot{margin-top:40px;grid-template-columns:1fr;row-gap:12px} .info .bot span:last-child{justify-self:start;text-align:left} }
+@media (max-width:760px){ .hv1 .art{overflow:hidden} .hv1 .art svg{width:230%;max-width:none;margin-left:-60%} }
+
+/* how we show up, composed: three light words, each sentence on the baseline of its word in one shared column */
+.lock2{min-height:100vh;padding:20vh var(--m);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-content:center}
+.lock2 .lbl{grid-column:3/8}
+.lock2 .rows{grid-column:3/13;margin-top:7vh;display:grid;row-gap:1.4vh}
+.lock2 .row{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));column-gap:var(--g);align-items:end}
+.lock2 .w{grid-column:1/7;font-size:clamp(54px,7.4vw,144px);line-height:.94;letter-spacing:-.022em;font-weight:300}
+.lock2 .w i{color:inherit}
+.lock2 .m{grid-column:7/11;padding-bottom:1.15vw;max-width:28em}
+.lock2 .end{grid-column:9/13;margin-top:9vh;display:grid;row-gap:.9em;justify-items:start}
+.lock2 .mono.u{justify-self:start}
+@media (max-width:760px){ .lock2{display:block;min-height:0;padding:110px var(--m)} .lock2 .rows{margin-top:36px;row-gap:26px} .lock2 .row{display:block} .lock2 .w{font-size:15vw} .lock2 .m{padding:8px 0 0} .lock2 .end{margin-top:48px} }
+
+/* =====================================================================================
+   v8 · round 10 (15 Oct 2026), closer to the Brand Standards. One typeface: small labels in Helvetica Neue Medium,
+   uppercase and spaced (the book's LABEL), no mono. Charcoal for the dark bands, used less. Every graphic is from
+   the book: Line of Sight, the rhythm, the city, the Application mark, the reply line.
+   ===================================================================================== */
+:root{--char:#2A2826; --lh:1.16; --hs:clamp(40px,6.1vw,122px)}
+.lbl{font-size:12px;line-height:1.45;font-weight:500;text-transform:uppercase;letter-spacing:.08em}
+.lbl.u{border-bottom:1px solid currentColor;padding-bottom:1px;text-decoration:none}
+.chairs2,.wavenm,.index{background:var(--char)}
+
+/* ---- hero: the statement behind Line of Sight. No text at rest beyond glimpses; the rows part for the cursor and
+   open as you scroll. ?still shows the frame with no motion; ?hero=b is the rhythm wall. */
+.hero4{position:relative}
+.js:not(.still) .hero4{height:190vh}
+.hero4 .stick{position:sticky;top:0;height:100vh;min-height:560px;display:flex;flex-direction:column;overflow:clip}
+.hero4 .nav{position:relative;z-index:4}
+.hero4 .stage{position:relative;flex:1}
+.hb{position:absolute;left:0;right:0;top:46%;transform:translateY(-50%);font-size:var(--hs);line-height:var(--lh)}
+.hl{position:relative;z-index:1;padding:0 var(--m);font-size:1em;line-height:inherit;font-weight:300;letter-spacing:-.026em}
+.hl i{font-weight:300}
+.lay{position:absolute;left:0;right:0;top:0;height:100%;pointer-events:none}
+.lay .row{position:absolute;left:0;right:0}
+.near{z-index:2} .far{z-index:0}
+.near .row{top:calc(var(--k) * var(--lh) * 1em + .13em);height:.92em}
+.far .row{top:calc(var(--k) * var(--lh) * 1em + .555em);height:.085em}
+.lay i{position:absolute;top:0;height:100%;display:block}
+.js .lay i,.js .bars i{will-change:transform}
+.near i.s{background:var(--draft)} .near i.r{background:var(--paper)} .near i.c{background:var(--coral)}
+.far i{background:var(--ink)}
+.bars{display:none;position:absolute;left:0;right:0;top:4%;bottom:9%;z-index:2;pointer-events:none}
+.bars i{position:absolute;display:block}
+.bars i.s{background:var(--draft)} .bars i.r{background:var(--paper)} .bars i.c{background:var(--coral)}
+.hero-b .bars{display:block} .hero-b .lay{display:none}
+.still .hero4 .stick{position:relative}
+@media (max-width:760px){ :root{--hs:11.6vw} br.d{display:none} .hb{top:44%} }
+@media (prefers-reduced-motion:reduce){ .js:not(.still) .hero4{height:auto} .hero4 .stick{position:relative} }
+
+/* ---- the moved line, beside the hallway */
+.pause .mt .d4{font-weight:300;max-width:13em}
+.pause .mt .soft{font-size:var(--small);max-width:26em}
+.lock2 .m{font-size:var(--small)}
+.chairs2 .foot2 .lbl{grid-column:8/13;color:var(--draft)}
+
+/* ---- the names as a wall (Round 2, idea 1), ?names=wall. Everyone on one wall; the name you point at lifts and the
+   people from the same conversation stay lit, the rest soften back. Always readable. */
+.wallsec{display:none;padding:22vh var(--m) 20vh}
+.names-wall .wallsec{display:block} .names-wall .wavenm{display:none}
+.wallsec .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7vh}
+.wall .ws{font-size:clamp(28px,3.7vw,72px);line-height:1.16;letter-spacing:-.026em;font-weight:300}
+.wall .n{display:inline-block;position:relative;white-space:nowrap;cursor:default;transition:color .45s ease,transform .45s cubic-bezier(.2,.7,.2,1);transform-origin:50% 80%}
+.wall .n.big{font-size:1.42em;letter-spacing:-.03em}
+.wall .sep{font-style:normal;color:var(--draft);font-weight:300;margin:0 .04em}
+.wall:has(.n:hover,.n:focus-visible) .n{color:#B9AC95}
+.wall .n:hover,.wall .n:focus-visible{transform:translateY(-.07em) scale(1.045);color:var(--ink)!important;outline:none}
+.wall .n:hover::after,.wall .n:focus-visible::after{content:".";position:absolute;left:100%;bottom:0;color:var(--coral)}
+.wall .caps{margin-top:8vh;border-top:1px solid var(--hair);padding-top:2.4vh;display:flex;justify-content:space-between;align-items:baseline}
+.wall .cap{display:none;font-weight:300}
+.wall .cap.all{display:block}
+.wall:has(.n:hover,.n:focus-visible) .cap.all{display:none}
+@media (hover:none){ .wall .hint{display:none} }
+@media (max-width:760px){ .wallsec{padding:110px var(--m)} .wall .ws{font-size:8.4vw} }
+
+/* ---- the city is what the rhythm makes, near the end */
+.city{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:26vh var(--m) 22vh;align-items:end}
+.city .cap{grid-column:1/4;padding-bottom:.4vh}
+.city .cap .d4{margin-top:.8em;font-weight:300}
+.city .art{grid-column:5/13}
+.city .art svg{width:100%;height:auto}
+@media (max-width:760px){ .city{display:block;padding:110px var(--m)} .city .art{margin-top:32px} }
+
+/* ---- footer: the brand's reply page, then the logo, the menu and one line */
+.foot3{padding:22vh var(--m) 4vh}
+.reply{display:grid;justify-items:center;row-gap:clamp(16px,2.2vw,38px)}
+.reply .ln{display:block;height:3px;background:var(--ink)}
+.reply .l1{width:min(46vw,820px)} .reply .l2{width:min(30vw,540px)}
+.reply .say{display:flex;align-items:center;column-gap:1.5vw;font-weight:300;white-space:nowrap;margin:clamp(8px,1vw,18px) 0}
+.reply .say i{color:var(--coral)}
+.reply .gap{display:block;width:min(19vw,340px);height:3px;background:var(--coral)}
+.foot3 .hall{display:none;text-align:center;font-weight:300}
+.foot-2 .foot3 .reply{display:none} .foot-2 .foot3 .hall{display:block}
+.foot3 .mail{display:table;margin:10vh auto 0;text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:.14em;font-weight:300}
+.foot3 .base{margin-top:22vh;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:end}
+.foot3 .lg{grid-column:1/5;line-height:0} .foot3 .lg img{height:clamp(58px,6.4vw,104px);width:auto}
+.foot3 .lk{grid-column:5/9;display:flex;gap:2.4vw;padding-bottom:.3em} .foot3 .lk a{text-decoration:none}
+.foot3 .cp{grid-column:9/13;justify-self:end;text-align:right;padding-bottom:.3em}
+@media (max-width:760px){
+  .foot3{padding:110px var(--m) 28px}
+  .reply .ln.l1{width:84vw} .reply .ln.l2{width:56vw}
+  .reply .say{display:block;white-space:normal;text-align:center;line-height:1.5}
+  .reply .say span{display:inline} .reply .gap{display:inline-block!important;width:22vw;vertical-align:.32em;margin:0 .3em}
+  .foot3 .mail{font-size:22px}
+  .foot3 .base{display:block;margin-top:90px} .foot3 .lk{margin-top:30px} .foot3 .cp{margin-top:14px;text-align:left} }
+
+/* ---- The Work: the Application mark where the photograph was; the number gone, the sentence carries the scale */
+.ash-p svg{width:100%;height:auto;display:block}
+.wk-what .top2{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:start}
+.wk-what .top2 .lbl{grid-column:1/3;padding-top:1em}
+.wk-what .top2 .d2{grid-column:3/12;font-weight:300}
+@media (max-width:760px){ .wk-what .top2{display:block} .wk-what .top2 .d2{margin-top:18px} }
+
+/* ---- The Dept.: name, title and email together */
+.person .who{grid-column:1/6;display:grid;row-gap:.3em;align-content:start;justify-items:start}
+.person .who .nm{font-weight:300;margin-bottom:.45em}
+.person .who .em{text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:1px}
+.person.band{padding-bottom:18vh}
+@media (max-width:760px){ .person.band{padding-bottom:70px} .person .txt{margin-top:24px} }
+
+/* ---- Contact: the main address only */
+.lm-b{grid-column:1/7}
+.lm-main{margin-top:10vh}
+.lm{padding-bottom:16vh}
+.bars i{transform-origin:0 0}
+.bars i.c2{transition:background-color .5s ease}
+.hero4:not(.open) .bars i.c2{background:var(--draft)}
+/* hero A, thinned: the blocks only on the statement's lines, one tone; thin rows above and below */
+.near i.s{background:var(--draft)}
+.lay .row.mb{display:none}
+.far .row{top:calc(var(--k) * var(--lh) * 1em + .5em);height:.075em}
+@media (max-width:760px){ .lay .row.mb{display:block} .lay .row.dk{display:none} }
+.bars i.k{transition:background-color .6s ease}
+.hero4.open .bars i.k{background:var(--ink)}
+.hero4 .stage{overflow:clip}
+/* line breaks: balanced headings, no orphans */
+h1,h2,h3,.d1,.d2,.d3,.d4,.lbl{text-wrap:balance}
+p{text-wrap:pretty}
+.lm-vert{text-orientation:sideways}
+.city .cap .d4{max-width:11em}
+@media (max-width:760px){ .bars i.x{display:none} }
+.wall .w{white-space:nowrap}
+
+/* hero A, second pass: the sentence is the Line of Sight. One Ink dash per word, exactly its length, on the
+   x-height; the spaces are the pauses; the full stop is the Signal dash. Replies above and below in Draft. */
+.hl .wd{position:relative;display:inline-block}
+.hl .tx{display:inline-block}
+.hl .nw{white-space:nowrap}
+.hl .dash{position:absolute;left:0;top:.6em;width:100%;height:.19em;background:var(--ink);transform-origin:0 50%}
+.hl .pd .tx{min-width:.44em}
+.hl .pd .dash{background:var(--coral)}
+.js .hl .tx{clip-path:polygon(0 0,0 0,0 0)}
+.far i{background:var(--draft)}
+.far .row{top:calc(var(--k) * var(--lh) * 1em + .54em);height:.1em}
+@media (prefers-reduced-motion:reduce){ .hl .dash{display:none} .js .hl .tx{clip-path:none} }
+.far .row{top:calc(var(--k) * var(--lh) * 1em + .6em);height:.19em}
+.hero4 .hl{will-change:transform}
+:root{--hs:clamp(40px,6.7vw,136px)}
+@media (max-width:760px){ :root{--hs:11.6vw} }
+
+/* ---- The Work head: the microphone, built from the rhythm. Seven inner bars, seven services set up the bars like
+   record spines; Talent Booking is the Signal bar at the centre. The stand runs off the page. */
+.wkm{position:relative;overflow:clip;padding-bottom:0}
+.wkm .art svg{display:block;width:100%;height:auto}
+.wkm .t{position:absolute;left:var(--m);bottom:6vh;font-size:clamp(48px,7.6vw,150px);line-height:.94;letter-spacing:-.03em;font-weight:300}
+.wkm .l{position:absolute;left:var(--m);top:3vh}
+.wkm .r{position:absolute;right:var(--m);bottom:6vh;text-align:right}
+.wkm .ml{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:760px){
+  .wkm{padding:4vh 0 90px}
+  .wkm .art{margin:0 -30vw 0 -38vw}
+  .wkm .t,.wkm .l,.wkm .r{position:static;margin-left:var(--m);margin-right:var(--m)}
+  .wkm .t{margin-top:-10vh;position:relative;font-size:15vw}
+  .wkm .l{margin-top:28px} .wkm .r{margin-top:10px;text-align:left}
+  .wkm .ml{position:static;width:auto;height:auto;clip:auto;overflow:visible;margin:44px var(--m) 0;border-top:1px solid var(--hair)}
+  .wkm .ml li{display:flex;gap:1.1em;padding:15px 0;border-bottom:1px solid var(--hair);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+  .wkm .ml li:first-child span+*{color:var(--coral)} }
+/* the services on the bars, read upward like record spines */
+.wkm .spines text{font-family:var(--f);font-size:14px;font-weight:500;letter-spacing:.12em;fill:var(--tan)}
+@media (max-width:760px){ .wkm .spines{display:none} .wkm .art{margin:0 -34vw 0 -42vw} }
+@media (max-width:760px){
+  .wkm{padding-top:2vh}
+  .wkm .art{width:176vw;margin:0 0 0 -61vw}
+  .wkm .t{margin-top:30px}
+  .wkm .ml li:first-child span:last-child{color:var(--coral)} }
+@media (max-width:760px){
+  .wkm{display:flex;flex-direction:column}
+  .wkm .t{position:static;order:2;margin-top:28px}
+  .wkm .l{order:3;margin-top:30px} .wkm .r{order:4} .wkm .ml{order:5} }
+/* the headline up top, its cap line level with the top of the Signal bar; the line beneath it */
+.wkm .hd{position:absolute;left:var(--m);top:4.4vw}
+.wkm .hd .t,.wkm .hd .l{position:static}
+.wkm .hd .t{margin-top:-.12em}
+.wkm .hd .l{margin-top:4.2vh}
+@media (max-width:760px){
+  .wkm .hd{position:static;order:2;margin:28px var(--m) 0}
+  .wkm .hd .t{margin:0} .wkm .hd .l{margin:30px 0 0} }
+@media (max-width:760px){ .wkm .hd{order:0;margin-top:2vh} .wkm .art{order:1;margin-top:36px} .wkm .r{margin-top:24px} }
