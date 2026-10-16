@@ -733,3 +733,555 @@ p{text-wrap:pretty}
   .wkm .hd{position:static;order:2;margin:28px var(--m) 0}
   .wkm .hd .t{margin:0} .wkm .hd .l{margin:30px 0 0} }
 @media (max-width:760px){ .wkm .hd{order:0;margin-top:2vh} .wkm .art{order:1;margin-top:36px} .wkm .r{margin-top:24px} }
+
+/* ---- the hallway, after the client: no more near-empty page. The photograph runs off the left edge and fills the
+   height; the line sits large beside it. */
+.pause2{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:12vh var(--m) 12vh 0;align-items:center;min-height:100vh}
+.pause2 figure{grid-column:1/7;align-self:stretch}
+.pause2 figure img{width:100%;height:100%;min-height:76vh;object-fit:cover;filter:grayscale(1)}
+.pause2 .t{grid-column:8/13}
+.pause2 .t h2{font-weight:300;max-width:9.5em}
+.pause2 .t .body{margin-top:2.2em;max-width:30em}
+.pause2 .t .u{display:inline-block;margin-top:2.6em}
+@media (max-width:760px){ .pause2{display:block;padding:0 0 100px;min-height:0} .pause2 figure img{min-height:0;height:62vh} .pause2 .t{padding:44px var(--m) 0} }
+
+/* ---- More than booking: both words at the same scale now, booking in Medium */
+.pun-h{flex-direction:column;align-items:flex-start;row-gap:0}
+.pun-h .big,.pun-h .small{font-size:clamp(56px,10.4vw,200px);line-height:.9;letter-spacing:-.034em}
+.pun-h .small{font-weight:500}
+
+/* ---- The Work: the names and the index are one charcoal band */
+.wavenm .hd h2.d2{font-weight:300}
+.idx2{padding-top:4vh;margin-top:0}
+.names-wall .idx2{background:var(--light);color:var(--ink)}
+.names-wall .idx2 ol li{border-color:var(--hair)} .names-wall .idx2 .gu{color:var(--ink70)}
+
+/* ---- menu, after the client: no boxes. Words in Medium; the page you are on carries the logo's coral full stop */
+.nav ul{gap:clamp(18px,2.4vw,40px)}
+.nav ul a,.on-ink .nav ul a{background:none!important;color:inherit!important;padding:.3em 0;font-size:clamp(15px,1.2vw,19px);font-weight:500;letter-spacing:-.005em}
+.nav ul a.on::after{content:"";display:inline-block;width:.24em;height:.24em;background:var(--coral);margin-left:.08em}
+.nav ul a:not(.on){color:var(--ink70)!important}
+.nav ul a:not(.on):hover{color:var(--ink)!important}
+@media (max-width:760px){ .nav ul{gap:16px} .nav ul a{font-size:14px;padding:.3em 0} }
+
+/* ---- Contact, after the client: the line whole on one line, no vertical text, no coral steps. One photograph,
+   the address beside it. */
+.ct{padding:6vh var(--m) 14vh}
+.ct-h{font-size:clamp(40px,6.6vw,128px);line-height:1;letter-spacing:-.028em;font-weight:300;white-space:nowrap}
+.ct-b{margin-top:8vh;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:end}
+.ct-b figure{grid-column:1/9}
+.ct-b figure img{width:100%;aspect-ratio:16/9;object-fit:cover;filter:grayscale(1)}
+.ct-t{grid-column:9/13;display:grid;row-gap:1.6em;padding-bottom:.4em}
+.ct-mail{font-size:var(--d3);letter-spacing:-.014em;line-height:1.1;text-decoration:none;border-bottom:1px solid var(--hair);justify-self:start;font-weight:300}
+@media (max-width:760px){ .ct-h{white-space:normal;font-size:12vw} .ct-b{display:block;margin-top:36px} .ct-t{margin-top:28px} .ct-mail{font-size:24px} }
+
+/* ---- hero A in depth (client, 16 Oct: "more depth, blur some things, as if in 3D space"). Perspective from the
+   statement's centre; each layer is pushed along z and scaled back to its drawn size, so at rest the frame is the
+   same and only movement reveals the depth. Focus falls off with distance; the blur never changes with scroll. */
+.hero4 .stage{perspective:1400px;perspective-origin:50% 46%}
+.scene{position:absolute;inset:0;transform-style:preserve-3d;--d:0}
+.js .scene{will-change:transform}
+.scene .hb{transform-style:preserve-3d}
+.hb .far{transform:translateZ(-240px) scale(1.1714);filter:blur(1.3px)}
+.scene .deep{position:absolute;left:-30%;right:-30%;top:-30%;bottom:-30%;pointer-events:none;
+  transform:translateZ(calc(-950px + var(--d) * 420px)) scale(1.6786);filter:blur(3.6px)}
+.scene .deep i{position:absolute;display:block;height:.42vw;min-height:3px;background:var(--draft);opacity:.8}
+.scene .fore{position:absolute;inset:0;pointer-events:none;transform:translateZ(calc(330px + var(--d) * 760px)) scale(.7643);filter:blur(9px)}
+.scene .fore i{position:absolute;display:block;height:2.4vw;min-height:14px}
+.scene .fore i.k{background:var(--ink)} .scene .fore i.d{background:var(--draft)}
+.hero-b .deep,.hero-b .fore{display:none}
+@media (max-width:760px){ .scene .fore{filter:blur(6px)} .scene .fore i{height:16px} }
+/* hero B keeps the whole sentence behind its bar wall: no word dashes there */
+.hero-b .hl .dash{display:none}
+.js.hero-b .hl .tx{clip-path:none}
+
+/* ---- What we do, as a framed page (after a brand-guidelines typography spread): a paper panel ruled into a narrow
+   left column, one huge line, two cells for the services and a strip along the foot. */
+.pnl-sec{padding:12vh var(--m)}
+.pnl{background:var(--paper);border:1px solid var(--hair);display:grid;grid-template-columns:minmax(220px,21%) 1fr 1fr;grid-template-rows:auto auto auto}
+.pnl>*{min-width:0}
+.p-l{grid-column:1;grid-row:1/3;border-right:1px solid var(--hair);padding:2.2vw 2vw;display:flex;flex-direction:column;justify-content:space-between;gap:8vh}
+.p-t{font-size:var(--d4);line-height:1.2;letter-spacing:-.008em}
+.p-t b{font-weight:500}
+.p-tx{font-size:var(--small);line-height:1.5;display:grid;row-gap:1em;max-width:22em;color:var(--ink70)}
+.p-big{grid-column:2/4;grid-row:1;padding:4.6vw 3vw 5vw;font-size:clamp(56px,9.6vw,190px);line-height:.9;letter-spacing:-.036em;font-weight:300}
+.p-big b{font-weight:500}
+.p-a,.p-b{grid-row:2;border-top:1px solid var(--hair);padding:2.2vw 3vw 2.6vw;display:grid;row-gap:.55em;align-content:start;font-size:clamp(15px,1.25vw,20px);letter-spacing:-.006em}
+.p-a{grid-column:2;border-right:1px solid var(--hair);font-weight:500}
+.p-b{grid-column:3;font-weight:300}
+.p-a li,.p-b li{display:grid;grid-template-columns:2.6em 1fr}
+.p-a .soft,.p-b .soft{font-weight:300}
+.p-f{grid-column:1/4;grid-row:3;border-top:1px solid var(--hair);display:grid;grid-template-columns:minmax(220px,21%) 1fr auto;align-items:center}
+.p-lg{display:block;line-height:0;padding:1.2vw 2vw;border-right:1px solid var(--hair);align-self:stretch;display:flex;align-items:center}
+.p-lg img{height:clamp(30px,2.6vw,46px);width:auto}
+.p-tr{padding:0 3vw;color:var(--ink70)} .p-tr span{margin:0 .7em}
+.p-go{padding:0 2.2vw;align-self:stretch;display:flex;align-items:center;border-left:1px solid var(--hair);text-decoration:none}
+.p-go::after{content:"\2192";margin-left:.6em}
+@media (max-width:760px){
+  .pnl-sec{padding:70px 14px}
+  .pnl{display:block}
+  .p-l{border-right:0;border-bottom:1px solid var(--hair);padding:20px;gap:28px}
+  .p-big{padding:28px 20px 34px;font-size:15vw}
+  .p-a,.p-b{padding:20px;font-size:15px} .p-a{border-right:0}
+  .p-f{grid-template-columns:auto 1fr} .p-tr{display:none} .p-lg{padding:16px 20px} .p-go{justify-content:flex-end;padding:0 20px} }
+.p-big{font-size:clamp(56px,11.6vw,226px);padding:3.6vw 3vw 4.2vw}
+@media (max-width:760px){ .p-big{font-size:15vw;padding:28px 20px 34px} }
+
+/* ---- The Work, what we do: the record shelf. The head's microphone bars are the services; here they stand as
+   spines on a shelf, names reading up, Talent Booking in Signal. One is pulled out and opens wide. */
+.shelf{padding:16vh var(--m) 18vh}
+.sh-hd{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:start}
+.sh-hd .lbl{grid-column:1/3;padding-top:.7em}
+.sh-hd .d3{grid-column:3/11;font-weight:300}
+.sh{margin-top:9vh;display:flex;gap:clamp(5px,.5vw,9px);height:min(78vh,780px);min-height:580px}
+.sp{position:relative;display:flex;flex:0 0 clamp(54px,4.4vw,80px);overflow:hidden;background:var(--paper);
+  transition:flex-grow .8s cubic-bezier(.22,1,.36,1),flex-basis .8s cubic-bezier(.22,1,.36,1)}
+.sp.on{flex:1 1 0}
+.sp-b{all:unset;box-sizing:border-box;cursor:pointer;flex:none;width:clamp(54px,4.4vw,80px);height:100%;display:flex;flex-direction:column;
+  justify-content:space-between;align-items:center;padding:22px 0 24px;background:var(--ink);color:var(--tan);transition:background-color .3s}
+.sp.sig .sp-b{background:var(--coral);color:var(--paper)}
+.sp:not(.on) .sp-b:hover{background:#34312D} .sp.sig:not(.on) .sp-b:hover{background:#C9513F}
+.sp-b:focus-visible{outline:2px solid var(--coral);outline-offset:-4px}
+.sp-b .n{font:500 12px/1 var(--f);letter-spacing:.08em}
+.sp-b .nm{writing-mode:vertical-rl;transform:rotate(180deg);font:500 13px/1 var(--f);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.sp-c{flex:1;min-width:0;visibility:hidden;opacity:0;transition:opacity .35s ease,visibility 0s .35s}
+.sp.on .sp-c{visibility:visible;opacity:1;transition:opacity .5s ease .35s,visibility 0s}
+.sp-c .in{width:min(58vw,880px);height:100%;padding:clamp(28px,3.4vw,64px) clamp(28px,3.6vw,68px);display:grid;grid-template-rows:auto auto 1fr auto;align-content:start}
+.sp-c h3{font-weight:300;margin-top:.55em;max-width:12em}
+.sp-c .ld{margin-top:1.8em;font-weight:500;max-width:30em}
+.sp-c .bd{margin-top:.7em;color:var(--ink70);max-width:34em}
+.sp-c .it{align-self:end;display:grid;grid-template-columns:1fr 1fr;column-gap:2.4em;row-gap:.8em;font-size:var(--small);max-width:46em;padding-top:4vh}
+.sp-c .it li{display:flex;gap:.8em;align-items:baseline}
+.sp-c .it li::before{content:"";flex:none;width:1.1em;height:3px;background:var(--ink);transform:translateY(-.28em)}
+.sp.sig .sp-c .it li::before{background:var(--coral)}
+@media (max-width:760px){
+  .shelf{padding:100px var(--m)}
+  .sh-hd{display:block} .sh-hd .d3{margin-top:16px}
+  .sh{display:block;height:auto;min-height:0;margin-top:44px}
+  .sp{display:block;margin-bottom:6px}
+  .sp-b{width:100%;height:auto;flex-direction:row;justify-content:flex-start;gap:16px;padding:20px 18px}
+  .sp-b .nm{writing-mode:horizontal-tb;transform:none;white-space:normal;line-height:1.35}
+  .sp-c{display:none} .sp.on .sp-c{display:block}
+  .sp-c .in{width:auto;padding:26px 18px 30px;display:block} .sp-c .it{grid-template-columns:1fr;padding-top:24px} }
+.sp-c .in{grid-template-rows:auto auto auto auto 1fr}
+
+/* ---- the indented paragraph (after an editorial reference): the first line starts further in, the rest runs the
+   full measure, a small label sits in the room the indent leaves. One shape, never two halves. */
+.ind-q{position:relative;display:block}
+.ind-q .lbl{position:absolute;left:0;top:.55em}
+.ind-q .q{font-size:clamp(30px,3.9vw,74px);line-height:1.08;letter-spacing:-.022em;font-weight:300;text-indent:calc(50% + var(--g) / 2);max-width:none;text-wrap:wrap}
+.ind{text-indent:34%}
+.pause2 .t .body.ind{font-size:var(--d4);line-height:1.32;color:var(--ink);max-width:24em}
+@media (max-width:760px){ .ind-q .lbl{position:static} .ind-q .q{font-size:8.6vw;text-indent:22%;margin-top:14px} .ind{text-indent:18%} }
+.ind-q .q{text-wrap:pretty}
+
+/* ---- The Dept., introduction (after an editorial reference): a photograph set inside the first line's indent,
+   resting on the baseline, the paragraph running on full measure; below a hairline, the three audiences. Copy is
+   the Brand Standards' (Philosophy: purpose, positioning; Different perspectives. One conversation.) */
+.dx{padding:18vh var(--m) 16vh}
+.dx-p{font-size:clamp(32px,4.2vw,82px);line-height:1.06;letter-spacing:-.024em;font-weight:300;max-width:17em;text-wrap:pretty}
+.dx-img{display:inline-block;vertical-align:baseline;width:clamp(150px,17vw,320px);margin:0 .32em 0 clamp(40px,8.5vw,160px)}
+.dx-img img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1)}
+.dx-cols{margin:9vh 0 0 calc(50% + var(--g) / 2);border-top:1px solid var(--hair);padding-top:2.2vh;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--g);row-gap:4vh}
+.dx-cols .lab{margin-bottom:.5em}
+.dx-cols .u{grid-column:1/-1;justify-self:start}
+@media (max-width:760px){ .dx{padding:100px var(--m)} .dx-p{font-size:9vw} .dx-img{width:38vw;margin-left:0} .dx-cols{margin-left:0;grid-template-columns:1fr;margin-top:48px} }
+.dx-p{max-width:20.5em}
+/* the same paragraph voice, everywhere there is running text: The Work's closing statement, each bio's first paragraph */
+.person .txt p:first-child{text-indent:34%}
+@media (max-width:760px){ .person .txt p:first-child{text-indent:18%} }
+
+/* ---- The Work, closing (after a showreel spread): the line is interrupted by a still strip of studio photographs
+   running edge to edge; the two halves sit in one column on the right. Nothing moves. */
+.wk-strip{padding:16vh 0 5vh;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g)}
+.wk-strip .a,.wk-strip .b{grid-column:7/13;padding-right:var(--m)}
+.wk-strip .big{font-size:clamp(44px,6.6vw,128px);line-height:.95;letter-spacing:-.03em;font-weight:300}
+.wk-strip .a .big{margin-top:.35em}
+.wk-strip .sub{margin-top:10vh;max-width:14em;font-size:var(--d4);line-height:1.25}
+.wk-strip .strip{grid-column:1/13;margin:5vh 0 11vh;display:grid;grid-template-columns:.62fr 1fr 1fr .62fr;gap:clamp(8px,1vw,16px);margin-left:-3vw;margin-right:-3vw}
+.wk-strip .strip img{width:100%;aspect-ratio:3/2;height:100%;object-fit:cover;filter:grayscale(1)}
+.wk-strip .strip figure:first-child img,.wk-strip .strip figure:last-child img{aspect-ratio:auto}
+.wk-strip .f{grid-column:1/13;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:0 var(--m);margin-top:12vh}
+.wk-strip .f .lbl:first-child{grid-column:1/7} .wk-strip .f .u{grid-column:7/13;justify-self:start}
+@media (max-width:760px){
+  .wk-strip{display:block;padding:100px 0 30px}
+  .wk-strip .a,.wk-strip .b{padding:0 var(--m)} .wk-strip .big{font-size:13vw} .wk-strip .sub{margin-top:28px}
+  .wk-strip .strip{grid-template-columns:.4fr 1fr .4fr;margin:40px -10vw 56px} .wk-strip .strip figure:nth-child(3){display:none}
+  .wk-strip .f{display:block;margin-top:60px} .wk-strip .f .u{display:inline-block;margin-top:10px} }
+.wk-strip .big{text-wrap:balance}
+@media (max-width:760px){ .wk-strip .f .lbl:first-child{display:block} }
+/* the microphone drawn fine: captions beside the rods, in Ink, the booking caption in Signal */
+.wkm .spines text{font-size:13px;letter-spacing:.14em;fill:var(--ink70);font-weight:500}
+.wkm .spines text.on{fill:var(--coral)}
+
+/* ---- hero A, Line of Sight made literal: the cards float in front of their words in one 3D room. The perspective
+   is taken from the stage centre (the script places and sizes each card for exactly this), and the 3D context runs
+   down to every word so the cards can sit in front of them. */
+.hero4 .stage{perspective:1100px;perspective-origin:50% 50%}
+.scene .hb,.scene .hl,.scene .hl .wd{transform-style:preserve-3d}
+.scene .hl .nw{display:inline-block;transform-style:preserve-3d}
+.hero4 .hl{will-change:auto}
+.hb .far{transform:translateZ(-240px) scale(1.2182)}
+.scene .deep{transform:translateZ(calc(-950px + var(--d) * 420px)) scale(1.8636)}
+.scene .fore{transform:translateZ(calc(330px + var(--d) * 600px)) scale(.7)}
+.js .hl .dash{will-change:transform;backface-visibility:hidden}
+.scene .hl .dash{transform-origin:50% 50%}
+
+/* ---- The Dept. head (after an experimental grid spread): three photographs of different sizes set off-balance on
+   the grid, the statement low on the right in Medium, small labels at the corners and along the foot. */
+.dg{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);grid-template-rows:auto auto 1fr auto;padding:3vh var(--m) 4vh;min-height:calc(100vh - 150px);row-gap:0}
+.dg figure img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+.dg .g1{grid-column:1/5;grid-row:1/3}
+.dg .g1 img{aspect-ratio:4/5}
+.dg .g2{grid-column:6/7;grid-row:1;align-self:start}
+.dg .g2 img{aspect-ratio:4/5}
+.dg .g3{grid-column:7/10;grid-row:1/3;align-self:start;margin-top:clamp(0px,0vw,0px)}
+.dg .g3 img{aspect-ratio:5/4}
+.dg .tr{grid-column:11/13;grid-row:1;justify-self:end;font-weight:500}
+.dg .yr{grid-column:1/5;grid-row:3;align-self:start;margin-top:3vh}
+.dg .st{grid-column:7/13;grid-row:3;align-self:end;font-size:clamp(30px,3.5vw,66px);line-height:1.04;letter-spacing:-.024em;font-weight:500;max-width:11em;padding-top:8vh}
+.dg .st b{font-weight:500} .dg .st i{font-weight:500}
+.dg .bot{grid-column:1/13;grid-row:4;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);margin-top:7vh}
+.dg .bot span:first-child{grid-column:1/5} .dg .bot span:nth-child(2){grid-column:5/7} .dg .bot a{grid-column:7/13;justify-self:start;text-decoration:none}
+@media (max-width:760px){
+  .dg{display:block;min-height:0;padding:4vh var(--m) 60px;position:relative}
+  .dg .tr{position:absolute;top:4vh;right:var(--m)}
+  .dg .g1{width:62%} .dg .g2{width:30%;margin:-30vw 0 0 auto} .dg .g3{width:56%;margin:16px 0 0 38%}
+  .dg .yr{margin-top:24px} .dg .st{font-size:9vw;padding-top:36px}
+  .dg .bot{display:grid;grid-template-columns:1fr;row-gap:8px;margin-top:40px} .dg .bot>*{grid-column:1/-1!important} }
+.nav ul a.on .pd{color:var(--coral)}
+.nav ul a.on:has(.pd)::after{display:none}
+
+/* The Dept. head, tightened: everything on one screen; the statement sits level with the foot of the large photo */
+.dg{grid-template-rows:auto 1fr auto;min-height:0;padding-bottom:6vh}
+.dg .g1{grid-column:1/5;grid-row:1/3}
+.dg .g2{grid-column:6/7;grid-row:1}
+.dg .g3{grid-column:8/11;grid-row:1;margin-top:9vh}
+.dg .tr{grid-column:11/13;grid-row:1}
+.dg .st{grid-column:6/13;grid-row:2;align-self:end;padding-top:6vh;margin-bottom:-.12em}
+.dg .yr{grid-column:1/5;grid-row:3;margin-top:2.4vh}
+.dg .bot{grid-column:6/13;grid-row:3;grid-template-columns:repeat(7,minmax(0,1fr));margin-top:2.4vh}
+.dg .bot span:first-child{grid-column:1/3} .dg .bot span:nth-child(2){grid-column:3/5} .dg .bot a{grid-column:5/8}
+.dg .g1 img{max-height:66vh}
+@media (max-width:760px){ .dg .g3{margin-top:16px} .dg .st{margin-bottom:0} .dg .bot{margin-top:36px} }
+.dg .bot a{align-self:start}
+
+/* ---- What we do, second take (after a grid-exploration spread): a large square photograph on the left half, the
+   line at the top of the right half, small blocks set low on the grid, labels at the corners. ?panel=frame shows
+   the framed panel instead. */
+.pnl-sec{display:none} .panel-frame .pnl-sec{display:block} .panel-frame .gx{display:none}
+.gx{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);grid-template-rows:auto 1fr auto auto;padding:12vh var(--m)}
+.gx-p{grid-column:1/7;grid-row:1/5}
+.gx-p img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;filter:grayscale(1)}
+.gx-h{grid-column:7/11;grid-row:1;font-size:clamp(34px,4.1vw,80px);line-height:.98;letter-spacing:-.03em;font-weight:300;margin-top:-.08em}
+.gx-h b{font-weight:500}
+.gx-tr{grid-column:11/13;grid-row:1;justify-self:end}
+.gx-m{grid-column:9/11;grid-row:2;align-self:center;display:grid;row-gap:.2em;justify-items:start}
+.gx-m .u{text-decoration:none}
+.gx-c{grid-column:7/9;grid-row:3;align-self:start}
+.gx-s{grid-column:9/12;grid-row:3;display:grid;row-gap:1.4em}
+.gx-s ol{display:grid;row-gap:.3em} .gx-s li{display:grid;grid-template-columns:2.4em 1fr}
+.gx-s p{line-height:1.5}
+.gx-b1{grid-column:7/10;grid-row:4;align-self:end;margin-top:6vh}
+.gx-b2{grid-column:11/13;grid-row:4;align-self:end;justify-self:end;margin-top:6vh}
+@media (max-width:760px){
+  .gx{display:block;padding:80px var(--m)}
+  .gx-h{margin-top:32px;font-size:11vw} .gx-tr{margin-top:16px}
+  .gx-m{margin-top:28px} .gx-c{margin-top:32px} .gx-s{margin-top:10px} .gx-b1,.gx-b2{margin-top:28px} }
+
+/* ---- The Dept., each person a page (after an editorial portrait spread): the name huge on two staggered lines, the
+   title and email in the margin beside it, the lead, the rest in two small columns, the portrait large on the right. */
+.pb{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);grid-template-rows:auto auto 1fr;padding:16vh var(--m) 16vh;align-items:start}
+.pb-i{grid-column:1/3;grid-row:1;padding-top:1.4vw}
+.pb-n{grid-column:2/13;grid-row:1;font-size:clamp(52px,8.4vw,164px);line-height:.9;letter-spacing:-.036em;font-weight:300}
+.pb-n span{display:block}
+.pb-n .l2{padding-left:calc(2 * (100% + var(--g)) / 11)}
+.pb-n i{font-weight:300}
+.pb-w{grid-column:1/4;grid-row:2;margin-top:4.6vh;display:grid;row-gap:.3em;justify-items:start;font-size:var(--small)}
+.pb-w .u{text-decoration:none}
+.pb-t{grid-column:4/8;grid-row:2/4;margin-top:7vh}
+.pb-lead{font-size:var(--d4);line-height:1.3;letter-spacing:-.006em}
+.pb-lead p{text-indent:0}
+.pb-rest{margin-top:3.4vh;column-count:2;column-gap:var(--g);font-size:var(--small);line-height:1.5;color:var(--ink70)}
+.pb-rest p+p{margin-top:1em}
+.pb-rest p{break-inside:avoid-column}
+.pb-p{grid-column:9/13;grid-row:2/4;margin-top:7vh}
+.pb-p img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;filter:grayscale(1)}
+@media (max-width:760px){
+  .pb{display:block;padding:90px var(--m)}
+  .pb-n{font-size:15vw;margin-top:10px} .pb-n .l2{padding-left:12vw}
+  .pb-w{margin-top:20px} .pb-t{margin-top:28px} .pb-rest{column-count:1} .pb-p{margin-top:32px;width:80%} }
+.pb-p{grid-column:9/13;grid-row:1/4;margin-top:1.6vw}
+.pb-n{grid-column:2/9}
+@media (max-width:760px){ .pb-p{margin-top:32px} }
+.pb-rest p{break-inside:auto}
+
+/* ---- The Dept. head, after the agency reference: the title huge at the top left; three small columns with one tall
+   hairline; a single Signal square at the right; the philosophy as one indented paragraph whose first line starts
+   on that hairline; then one photograph across the full width. */
+.ag{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:3vh var(--m) 9vh}
+.ag-t{grid-column:1/13;font-size:clamp(64px,9.8vw,196px);line-height:.86;letter-spacing:-.042em;font-weight:300;margin-left:-.04em}
+.ag-cols{grid-column:1/13;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);margin-top:4.4vh;align-items:start}
+.ag-cols .c{display:grid;row-gap:.38em;align-content:start;justify-items:start;font-size:var(--small);line-height:1.4}
+.ag-cols .c .lbl{margin-bottom:.9em}
+.ag-cols .c a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.22em}
+.ag-cols .c1{grid-column:1/5}
+.ag-cols .c2{grid-column:5/9;border-left:1px solid var(--hair);padding-left:calc(var(--g) * 1.2);min-height:30vh;margin-left:calc(var(--g) * -1.2)}
+.ag-cols .c2 p:not(.lbl){max-width:20em}
+.ag-cols .c3{grid-column:9/12}
+.ag-mark{grid-column:12/13;justify-self:end;align-self:end;width:clamp(10px,.9vw,16px);aspect-ratio:1;background:var(--coral)}
+.ag-p{grid-column:1/13;position:relative;margin-top:7vh}
+.ag-p .lbl{position:absolute;left:0;top:.6em}
+.ag-p .q{font-size:clamp(32px,4.4vw,86px);line-height:1.04;letter-spacing:-.026em;font-weight:300;text-indent:calc(33.333% + var(--g) / 3);text-wrap:pretty}
+.ag-p .q b{font-weight:500}
+.ag-ph{margin:0}
+.ag-ph img{display:block;width:100%;height:min(78vh,56vw);object-fit:cover;filter:grayscale(1)}
+@media (max-width:760px){
+  .ag{display:block;padding:3vh var(--m) 70px}
+  .ag-t{font-size:23vw}
+  .ag-cols{display:block;margin-top:28px} .ag-cols .c+.c{margin-top:26px}
+  .ag-cols .c2{border-left:0;padding-left:0;margin-left:0;min-height:0}
+  .ag-mark{display:none}
+  .ag-p{margin-top:56px} .ag-p .lbl{position:static} .ag-p .q{font-size:9vw;text-indent:0;margin-top:14px}
+  .ag-ph img{height:62vh} }
+
+/* person pages: the title and email share the lead's first baseline */
+.pb-w,.pb-t{margin-top:7vh;align-self:baseline}
+.pb{grid-template-rows:auto auto 1fr}
+.pb-t{grid-row:2}
+.pb-w,.pb-t{align-self:baseline;margin-top:7vh}
+.ag-cols .c2{min-height:22vh}
+.ag-p{margin-top:6vh}
+.ag-p .q{font-size:clamp(32px,4.15vw,82px)}
+/* The Dept. head, reduced: two rows on one system, a small label at the left and the content from column 5; the
+   paragraph's first line starts where the names start */
+.ag-row{grid-column:1/13;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);margin-top:5vh;align-items:baseline}
+.ag-row .lbl{grid-column:1/5}
+.ag-row ul{grid-column:5/13;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--g);row-gap:.5em;font-size:var(--d4)}
+.ag-row a{color:inherit;text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:1px}
+.ag-row a:hover{border-bottom-color:var(--ink)}
+.ag-p{margin-top:9vh}
+@media (max-width:760px){ .ag-row{display:block;margin-top:28px} .ag-row ul{display:grid;grid-template-columns:1fr 1fr;margin-top:14px;font-size:17px} }
+
+/* ---- What we do, third take: the winner of a judged round (16 Oct), "photo leads". One light photograph runs the full
+   height of the band and off the right edge; the line holds the left; everything hangs on one left axis. Three sizes
+   only (display, text, label); services 4 + 3 with the link in the eighth slot. */
+.gx{display:none}
+.panel-frame .vb{display:none}
+.vb{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:0 var(--m);background:var(--light);min-height:clamp(640px,62vw,1120px)}
+.vb-t{grid-column:1/6;grid-row:1;display:flex;flex-direction:column;padding:6.4vw 0 6.2vw}
+.vb-h{margin-top:2.4vw;font-size:clamp(44px,8.2vw,156px);line-height:.94;letter-spacing:-.034em;font-weight:300}
+.vb-h b{font-weight:500}
+.vb-p{margin-top:2.4vw;max-width:24em;color:var(--ink70);font-size:var(--body);line-height:1.45;text-wrap:pretty}
+.vb-s{margin-top:auto;padding-top:3.2vw;display:grid;grid-template-columns:1fr 1fr;column-gap:var(--g);font-size:var(--body);line-height:1.45}
+.vb-s ol{display:grid;row-gap:.32em;align-content:start}
+.vb-s li{display:grid;grid-template-columns:2.4em 1fr;align-items:baseline}
+.vb-s li span{font:500 12px/1 var(--f);letter-spacing:.06em;color:var(--ink70);font-variant-numeric:tabular-nums}
+.vb-s li.vb-go{display:block;padding-left:2.4em}
+.vb-s li.vb-go a{text-decoration:none}
+.vb-f{grid-column:6/13;grid-row:1;margin:0 calc(-1 * var(--m)) 0 0;position:relative}
+.vb-f img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:16% 50%;filter:grayscale(1) contrast(1.13)}
+@media (max-width:760px){
+  .vb{display:flex;flex-direction:column;min-height:0;padding:0 0 90px}
+  .vb-f{margin:0;order:0} .vb-f img{position:static;aspect-ratio:1/1;height:auto}
+  .vb-t{order:1;padding:40px var(--m) 0}
+  .vb-h{margin-top:14px;font-size:14vw} .vb-p{margin-top:18px}
+  .vb-s{margin-top:40px;padding-top:0} }
+@media (max-width:1199px){ .vb-s{grid-template-columns:1fr;row-gap:.32em} .vb-s li.vb-go{margin-top:1.2em} }
+.vb-s li{white-space:nowrap}
+
+/* ---- The Dept., contrast by value and by layer: the philosophy moves onto a charcoal plane that bleeds off the left
+   edge and overlaps the top of the photograph beneath it. Tan, then charcoal, then the photograph; one coral full stop. */
+.ag{padding-bottom:10vh}
+.ag-lay{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:0 var(--m);background:linear-gradient(var(--tan) 0 50%,transparent 50%)}
+.ag-card{grid-column:1/11;grid-row:1;position:relative;z-index:2;margin-left:calc(-1 * var(--m));background:var(--char);color:var(--cream);
+  padding:clamp(34px,4vw,76px) clamp(28px,3.6vw,72px) clamp(40px,4.6vw,88px) var(--m)}
+.ag-card .lbl{position:absolute;left:var(--m);top:calc(clamp(34px,4vw,76px) + .7em);color:var(--draft)}
+.ag-card .q{font-size:clamp(30px,3.7vw,72px);line-height:1.06;letter-spacing:-.024em;font-weight:300;text-indent:calc(30% + var(--g));text-wrap:pretty}
+.ag-card .q b{font-weight:500;color:#fff}
+.ag-ph{grid-column:1/13;grid-row:2;margin:-13vh calc(-1 * var(--m)) 0;position:relative;z-index:1}
+.ag-ph img{display:block;width:100%;height:min(80vh,58vw);object-fit:cover;filter:grayscale(1) contrast(1.13)}
+@media (max-width:760px){
+  .ag-lay{display:block;padding:0}
+  .ag-card{margin:0;padding:64px var(--m) 56px}
+  .ag-card .lbl{position:static;display:block;margin-bottom:14px}
+  .ag-card .q{font-size:8.6vw;text-indent:0}
+  .ag-ph{margin:-24px 0 0} .ag-ph img{height:60vh} }
+
+/* ---- How we show up, layered: a charcoal plane comes in from behind on the right and runs off the page edge, under
+   the three lines and the closing line; the big words stay whole on the tan. Its left edge is painted coral, the cue
+   card edge of the Brand Standards, the one coral piece. */
+.lock2{position:relative}
+.lock2 .lk-plane{grid-column:9/13;grid-row:2/4;margin:-5vh calc(-1 * var(--m)) -6vh -2.4vw;background:var(--char);border-left:5px solid var(--coral);z-index:0}
+.lock2 .rows,.lock2 .end{position:relative;z-index:1}
+.lock2 .rows{grid-row:2} .lock2 .end{grid-row:3} .lock2 > .lbl{grid-row:1}
+.lock2 .m{color:var(--cream)}
+.lock2 .m .soft{color:var(--draft)}
+.lock2 .end .lbl{color:var(--cream)}
+.lock2 .end .u{color:var(--cream);border-color:rgba(242,238,229,.5)}
+.lock2 .end{padding-bottom:1vh}
+@media (max-width:760px){
+  .lock2 .lk-plane{display:none}
+  .lock2 .m{color:var(--ink)} .lock2 .m .soft{color:var(--ink70)} .lock2 .end .lbl,.lock2 .end .u{color:var(--ink)} }
+.lock2 .end .lbl{grid-column:auto}
+.lock2 .lk-plane{margin-top:-3vh}
+
+/* ---- How we show up, layered properly: tan, then a charcoal plane from the middle off the right edge, then a paper
+   sheet on top of it holding the three words, its right edge painted coral (the cue card edge) where paper meets
+   charcoal. The lines sit on the charcoal in cream, each on the last baseline of its word. */
+.lock3{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);grid-template-rows:auto auto auto auto auto;
+  padding:18vh var(--m) 16vh;align-items:last baseline}
+.l3-plane{grid-column:6/13;grid-row:1/6;margin:0 calc(-1 * var(--m)) 0 0;background:var(--char);align-self:stretch}
+.l3-sheet{grid-column:2/9;grid-row:1/5;margin:-6vh 0 0 calc(-1 * var(--g));background:var(--paper);border-right:5px solid var(--coral);align-self:stretch;position:relative;z-index:1}
+.l3-l{grid-column:3/8;grid-row:1;padding-top:7vh;position:relative;z-index:2;align-self:start}
+.l3-w{grid-column:3/8;position:relative;z-index:2;font-size:clamp(54px,7.2vw,140px);line-height:.96;letter-spacing:-.024em;font-weight:300}
+.l3-w i{color:inherit}
+.l3-w.r1{grid-row:2;margin-top:6vh} .l3-w.r2{grid-row:3} .l3-w.r3{grid-row:4;padding-bottom:7vh}
+.l3-m{grid-column:9/13;position:relative;z-index:2;color:var(--cream);font-size:var(--small);line-height:1.5;max-width:26em;display:grid;grid-template-columns:2.6em 1fr;padding-left:1.6vw}
+.l3-m span{color:var(--draft);font-variant-numeric:tabular-nums}
+.l3-m.r1{grid-row:2} .l3-m.r2{grid-row:3} .l3-m.r3{grid-row:4}
+.l3-end{grid-column:9/13;grid-row:5;position:relative;z-index:2;display:grid;row-gap:.9em;justify-items:start;padding:9vh 0 7vh 1.6vw;align-self:start}
+.l3-end .lbl{color:var(--cream)}
+.l3-end .u{color:var(--cream);border-color:rgba(242,238,229,.5);text-decoration:none}
+@media (max-width:760px){
+  .lock3{display:block;padding:90px 0 0}
+  .l3-plane,.l3-sheet{display:none}
+  .l3-l,.l3-w{padding-left:var(--m);padding-right:var(--m)}
+  .l3-l{padding-top:0;margin-bottom:20px}
+  .l3-w{font-size:15vw;margin:0;padding-bottom:0;background:none}
+  .l3-w.r1{margin-top:0} .l3-w.r3{padding-bottom:0}
+  .l3-m{background:var(--char);margin:0;padding:18px var(--m) 0;max-width:none}
+  .l3-m.r1{margin-top:36px;padding-top:34px;border-left:5px solid var(--coral)}
+  .l3-m.r2,.l3-m.r3{border-left:5px solid var(--coral)}
+  .l3-end{background:var(--char);padding:34px var(--m) 60px;border-left:5px solid var(--coral)} }
+@media (max-width:760px){
+  .lock3{display:flex;flex-direction:column;padding:90px 0 0}
+  .l3-l{order:1} .l3-w{order:2} .l3-m{order:3} .l3-end{order:4}
+  .l3-l,.l3-w{background:var(--paper);margin:0 8vw 0 0;padding-left:var(--m);padding-right:var(--m);border-right:5px solid var(--coral);position:relative;z-index:2}
+  .l3-l{padding-top:34px;margin-bottom:0;padding-bottom:22px}
+  .l3-w.r3{padding-bottom:36px}
+  .l3-m,.l3-end{border-left:0!important}
+  .l3-m{background:var(--char);margin:0;padding:16px var(--m) 0;position:relative;z-index:1}
+  .l3-m.r1{margin-top:-18px;padding-top:52px}
+  .l3-end{padding:34px var(--m) 64px} }
+@media (max-width:760px){ .lock3{align-items:stretch} .l3-l,.l3-w,.l3-m,.l3-end{align-self:stretch} }
+/* The Dept. philosophy back on the tan (Piyush: keep it as before); the photograph full width beneath, no overlap */
+.ag-ph{margin:0;position:static}
+/* the sheet's coral edge becomes one small coral square, flush in its top-left corner */
+.l3-sheet{border-right:0}
+.l3-sheet::before{content:"";position:absolute;top:0;left:0;width:clamp(10px,.95vw,16px);aspect-ratio:1;background:var(--coral)}
+@media (max-width:760px){
+  .l3-l,.l3-w{border-right:0}
+  .l3-l::before{content:"";position:absolute;top:0;left:0;width:12px;height:12px;background:var(--coral)} }
+/* the coral square sits outside the sheet, touching its top-left corner corner-to-corner */
+.l3-sheet::before{top:auto;left:auto;bottom:100%;right:100%}
+@media (max-width:760px){ .l3-l::before{top:auto;left:auto;bottom:100%;right:auto;left:0;transform:translateX(-100%)} .lock3{padding-top:100px} }
+@media (max-width:760px){ .l3-l::before{left:100%;right:auto;bottom:100%;top:auto;transform:none} }
+
+/* ---- Where the work happens, rebuilt: the brand city in two depths, edge to edge, standing directly on the charcoal
+   footer (near buildings are the footer's own charcoal, so the city rises out of the ground). Caption in the sky. */
+.city2{padding:20vh 0 0}
+.city2 .cap{padding:0 var(--m);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:baseline}
+.city2 .cap .lbl{grid-column:1/4}
+.city2 .c2-l{grid-column:4/11;font-size:clamp(28px,3.4vw,64px);line-height:1.04;letter-spacing:-.022em;font-weight:300;text-wrap:balance}
+.city2 .art{margin-top:9vh;height:clamp(200px,27vw,470px);line-height:0}
+.city2 .art svg{width:100%;height:100%;display:block}
+@media (max-width:760px){ .city2{padding-top:100px} .city2 .cap{display:block} .city2 .c2-l{font-size:9vw;margin-top:14px} .city2 .art{height:200px;margin-top:48px} }
+
+/* ===== layering round (16 Oct), adopted by both judges: the home hallway and Contact as planes on the tan ===== */
+/* The hallway, as three planes on the tan.
+   L1 a charcoal plane runs off the right edge; the landscape photograph lies on it, stepping one column past its
+   left edge onto the tan. L2 a paper sheet carries the line and the paragraph and is laid over the photograph's
+   empty left wall, never over the two people. L3 one coral tab clipped over the sheet's top edge. */
+.ly-hall{container-type:inline-size;background:var(--tan)}
+.ly-hall-g{
+  --ch:#2A2826; --pp:#FBF9F4;
+  --pitch:calc((100cqw - 2 * var(--m) + var(--g)) / 12);
+  --phw:calc(100cqw - var(--m) - 3 * var(--pitch));      /* photo: column 4 to the page edge */
+  --phh:calc(var(--phw) * 9 / 16);
+  --pad:clamp(36px,4.4vw,80px);
+  padding:12vh 0 13vh;
+  display:grid;grid-template-columns:calc(var(--m) - var(--g)) repeat(12,minmax(0,1fr)) calc(var(--m) - var(--g));column-gap:var(--g);
+  grid-template-rows:clamp(56px,6.2vw,112px) calc(var(--phh) * .36) calc(var(--phh) * .64) clamp(56px,5.6vw,100px) minmax(clamp(48px,4.4vw,80px),auto)
+}
+/* L1 */
+.ly-hall-ch{grid-column:6/15;grid-row:1/5;background:var(--ch)}
+/* the photograph, on the charcoal */
+.ly-hall-ph{grid-column:5/15;grid-row:2/4;position:relative;margin:0}
+.ly-hall-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;filter:grayscale(1) contrast(1.13)}
+/* L2: the sheet, columns 1 to 7, over the photograph's left wall and down past the charcoal */
+.ly-hall-pp{grid-column:2/9;grid-row:3/6;position:relative;background:var(--pp);color:var(--ink);padding:var(--pad) var(--pad) calc(var(--pad) * 1.1)}
+.ly-hall-pp h2{font-weight:300;max-width:10.4em}
+.ly-hall-pp h2 b{font-weight:500}
+.ly-hall-pp h2 i{color:inherit;font-weight:500}
+/* the paragraph's first line starts on column 4, the photograph's left edge, under the coral tab */
+.ly-hall-pp .body{margin-top:clamp(28px,2.6vw,48px);font-size:var(--d4);line-height:1.32;font-weight:400;max-width:28.5em;text-indent:calc(var(--pitch) * 3 - var(--pad))}
+.ly-hall-pp .u{display:inline-block;margin-top:clamp(26px,2.4vw,44px)}
+/* L3: one coral tab clipped over the sheet's top edge, its left side on the photograph's left edge, so it pins the
+   sheet to the print: half over the photograph, half on the paper */
+.ly-hall-tab{--th:clamp(20px,2vw,36px);position:absolute;left:calc(var(--pitch) * 3);top:calc(var(--th) * -1);width:clamp(10px,.9vw,15px);height:calc(var(--th) * 2);background:var(--coral)}
+
+@media (max-width:760px){
+  .ly-hall-g{--pad:24px;--phh:calc((100cqw - var(--m) - 24px) * 3 / 4);
+    padding:64px 0 84px;grid-template-columns:var(--m) minmax(0,1fr) var(--m);column-gap:0;
+    grid-template-rows:auto 40px calc(var(--phh) - 40px) 48px}
+  .ly-hall-pp{grid-column:2/3;grid-row:1/3;padding-bottom:44px}
+  .ly-hall-ph{grid-column:2/4;grid-row:2/4;margin-left:24px}
+  .ly-hall-ph img{object-position:62% 50%}
+  .ly-hall-ch{grid-column:1/3;grid-row:2/5;margin-top:-64px;margin-right:24px}
+  /* on the phone the sheet meets the photograph along its foot, so the tab clips the foot, on the photo's edge */
+  .ly-hall-tab{--th:18px;left:var(--pad);top:auto;bottom:calc(var(--th) * -1)}
+  .ly-hall-pp h2{font-size:10.6vw}
+  .ly-hall-pp .body{font-size:17px;text-indent:34%}
+}
+/* Contact, layered as a staircase on the 12-column grid. L0 tan carries the line, on one line. L1 a charcoal sheet
+   from column 2; the corridor print lies on it from column 4, flush to its top and right, so the charcoal shows as a
+   margin on the left and below. L2 the paper sheet with the address, from column 1, laid over the corridor's dark left
+   wall (clear of the two people) and hanging onto the tan. L3 one coral tab standing up from the paper on column 3.
+   Columns 1, 2, 3, 4: each layer one step in. Depth from overlap, offset and value only. */
+.ly-ct{--in:clamp(20px,2.5vw,44px);background:var(--tan);padding:6vh var(--m) 16vh}
+.ly-ct-h{font-size:clamp(40px,6.6vw,128px);line-height:1;letter-spacing:-.028em;font-weight:300;white-space:nowrap}
+.ly-ct-h b{font-weight:500}
+.ly-ct-w{margin-top:8vh;container-type:inline-size}
+.ly-ct-g{--c:calc((100cqw - 11 * var(--g)) / 12);--ph:calc((9 * var(--c) + 8 * var(--g)) * .5625);--bb:calc(var(--in) * 2.2);
+  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);align-items:start}
+
+/* L1 charcoal, columns 2 to 12; the print sits on it from column 4 */
+.ly-ct-ch{grid-column:2/13;grid-row:1;background:var(--char);padding:0 0 var(--bb) calc(2 * var(--c) + 2 * var(--g));position:relative;z-index:1}
+.ly-ct-ch img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:50% 50%;filter:grayscale(1) contrast(1.13)}
+
+/* L2 paper, columns 1 to 5 */
+.ly-ct-pp{grid-column:1/6;grid-row:1;position:relative;z-index:2;background:var(--paper);
+  margin-top:calc(var(--ph) * .62);min-height:calc(var(--ph) * .38 + var(--bb) + 9vh);
+  padding:calc(var(--in) * 1.1) var(--in) var(--in);display:flex;flex-direction:column;justify-content:space-between;row-gap:2.4em}
+/* L3 coral: one tab standing up from the sheet's top edge, on column 3 */
+.ly-ct-pp::before{content:"";position:absolute;left:calc(2 * var(--c) + 2 * var(--g));top:-10px;width:var(--c);height:10px;background:var(--coral)}
+.ly-ct-ad{font-size:var(--d4);line-height:1.22;letter-spacing:-.008em;font-weight:400}
+.ly-ct-ad span{color:var(--ink70)}
+.ly-ct-mail{font-size:clamp(22px,2.9vw,52px);line-height:1.1;letter-spacing:-.014em;font-weight:400;text-decoration:none;
+  border-bottom:1px solid var(--hair);align-self:flex-start;white-space:nowrap}
+
+@media (max-width:760px){
+  .ly-ct{--in:20px;padding:40px var(--m) 88px}
+  .ly-ct-h{font-size:8.4vw}
+  .ly-ct-w{margin-top:34px}
+  .ly-ct-g{display:block;--bb:52px}
+  .ly-ct-ch{margin-left:14px;padding:0 0 var(--bb) 14px}
+  /* on the phone the sheet lies on the charcoal margin below the print, never over the people */
+  .ly-ct-pp{margin:-26px 36px 0 0;min-height:0;padding:28px 20px 22px;row-gap:30px}
+  .ly-ct-pp::before{left:14px;width:36px;top:-8px;height:8px}
+  .ly-ct-ad{font-size:19px}
+  .ly-ct-mail{font-size:min(24px,6.2vw)}
+}
+/* house rules on top of the adopted designs: coral is one small square outside a sheet's top-left corner (as in How
+   we show up), never a painted bar; Contact keeps its coral only on the headline's full stop; the Contact sheet is
+   as tall as its content */
+.ly-hall-pp::before{content:"";position:absolute;bottom:100%;right:100%;width:clamp(10px,.95vw,16px);aspect-ratio:1;background:var(--coral)}
+.ly-ct-pp::before{display:none}
+.ly-ct-pp{min-height:0;justify-content:flex-start;row-gap:1.6em}
+@media (max-width:760px){ .ly-hall-pp::before{right:auto;left:100%;bottom:100%;width:12px} }
+/* How we show up: the content centred in its sheet (equal paper above the label and below the last word), the label
+   closer to the words */
+.l3-l{padding-top:2.4vh}
+.l3-w.r1{margin-top:4.2vh}
+.l3-w.r3{padding-bottom:8.4vh}

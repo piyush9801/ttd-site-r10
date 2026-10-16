@@ -1,24 +1,26 @@
 /* The Talent Dept. · round 10 hero.
-   A: the sentence as Line of Sight. Each word stands behind one Ink dash of its own length. Move across it and the
-   dashes near the cursor slide aside, each at its own pace and by its own amount (a quick movement sends them further),
-   and the words show where they stood. Scroll and the dashes give way in reading order, the coral one last, into the
-   full stop. The Draft replies, set in the pauses between the lines, sit deeper: they drift more with the cursor and
-   leave to the right.
-   ?hero=b: the rhythm wall, which comes down into the city.
-   Nothing moves on its own: when the cursor rests, everything settles and the loop stops. Touch: scrolling opens it;
-   dragging a finger across it moves the dashes too. */
+   A: Line of Sight, made literal. The statement is printed on the page; each word's Ink dash is a card that floats in
+   front of it at its own depth, sized so that, seen straight on, every card sits exactly over its word: a still row
+   of dashes and no text. Move and your line of sight moves: the whole room turns a few degrees, the cards part from
+   their words by their own distances, and the words show through where they open. The card nearest the cursor lifts
+   further towards you. Behind, the Draft replies, a soft far field and four out-of-focus dashes near the lens each
+   move by their own depth. Scroll and the cards turn edge-on in reading order, the coral one last into the full
+   stop, while the replies leave to the right. ?hero=b: the rhythm wall, which comes down into the city.
+   Nothing moves on its own: when the cursor rests, the room comes back into line and the loop stops. Phones: the
+   scroll opens it; on Android, tilting the phone moves the line of sight. */
 (function () {
   var H = document.querySelector('.hero4'), root = document.documentElement;
   if (!H || root.classList.contains('still')) return;
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var B = root.classList.contains('hero-b');
+  var P = 1100;                                  // the perspective (css: .hero4 .stage)
   var stage = H.querySelector('.stage');
   var els = [].slice.call(H.querySelectorAll(B ? '.bars i' : '.far i'));
   var wds = B ? [] : [].slice.call(H.querySelectorAll('.hl .wd'));
-  var box = B ? H.querySelector('.bars') : null, hl = B ? null : H.querySelector('.hl');
+  var box = B ? H.querySelector('.bars') : null, hl = B ? null : H.querySelector('.hl'), scene = B ? null : H.querySelector('.scene');
   var W = 1, SH = 1, items = [], words = [], boxBottom = 0, em = 16;
   var mx = -1e4, my = -1e4, pvx = 0, pvy = 0, lastX = null, lastY = null, lastT = 0, inside = false;
-  var par = 0, open = 0, running = false;
+  var par = 0, tilt = 0, gx = 0, gy = 0, open = 0, running = false;
 
   function hash(i, s) { var x = Math.sin(i * 12.9898 + s * 78.233) * 43758.5453; return x - Math.floor(x); }
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
@@ -32,7 +34,8 @@
 
   function measure() {
     els.forEach(function (el) { el.style.transform = ''; });
-    wds.forEach(function (w) { w.lastElementChild.style.transform = ''; }); if (hl) hl.style.transform = '';
+    wds.forEach(function (w) { w.lastElementChild.style.transform = ''; w.lastElementChild.style.visibility = ''; w.firstElementChild.style.clipPath = ''; });
+    if (scene) scene.style.transform = '';
     var s = stage.getBoundingClientRect(); W = s.width; SH = s.height; if (hl) em = parseFloat(getComputedStyle(hl).fontSize) || 16;
     if (box) { var bb = box.getBoundingClientRect(); boxBottom = bb.bottom - s.top; }
     var rows = {};
@@ -52,12 +55,13 @@
       it.dir = B ? 0 : 1;                         // replies leave to the right
       it.delay = B ? clamp(Math.abs(cx - .5) * .5 + hash(i, 5) * .12, 0, .4) : clamp(.12 + r * .12 + (1 - cx) * .1 + hash(i, 5) * .06, 0, .55);
     });
+    // the cards: each at its own depth, placed and sized so that from straight on it covers its word exactly
     words = wds.map(function (el, i) {
-      var r = el.getBoundingClientRect(), it = words[i] || { ox: 0, oy: 0, vx: 0, vy: 0 };
+      var d = el.lastElementChild.getBoundingClientRect(), it = words[i] || { oz: 0, vz: 0 };
       it.el = el; it.tx = el.firstElementChild; it.dash = el.lastElementChild;
-      it.x = r.left - s.left; it.y = r.top - s.top; it.w = r.width; it.h = r.height;
-      it.k = .045 + hash(i, 7) * .05; it.d = .82 + hash(i, 8) * .06; it.a = .6 + hash(i, 9) * .5;
-      it.sg = hash(i, 10) < .5 ? -1 : 1;
+      it.cx = d.left - s.left + d.width / 2 - W / 2; it.cy = d.top - s.top + d.height / 2 - SH / 2;
+      it.z0 = 140 + hash(i, 7) * 250;
+      it.k = .05 + hash(i, 8) * .04; it.d = .84 + hash(i, 9) * .05;
       it.delay = i / wds.length * .62;            // in reading order, the coral one last
       return it;
     });
@@ -70,53 +74,61 @@
 
   function tick() {
     open = progress();
-    var moving = false, parT = inside ? (mx / W - .5) : 0;
-    par += (parT - par) * .08; if (Math.abs(parT - par) > .0005) moving = true;
+    var moving = false;
+    var parT = inside ? (mx / W - .5) : gx, tT = inside ? (my / SH - .5) : gy;
+    par += (parT - par) * .07; tilt += (tT - tilt) * .07;
+    if (Math.abs(parT - par) + Math.abs(tT - tilt) > .0008) moving = true;
     pvx *= .9; pvy *= .9; if (Math.abs(pvx) + Math.abs(pvy) > .05) moving = true;
     H.classList.toggle('open', open > .55);
 
-    if (hl) hl.style.transform = 'translate3d(' + (par * -9).toFixed(1) + 'px,0,0)';
-    // the statement: a dash slides aside and its word shows in the room it leaves
-    for (var j = 0; j < words.length; j++) {
-      var w = words[j], tx = 0, ty = 0;
-      if (inside) {
-        var dx = w.x + w.w / 2 - mx, f = falloff(dx, (w.y + w.h / 2 - my) * 1.9, Math.max(150, W * .15));
-        if (f) {
-          tx = f * ((dx >= 0 ? 1 : -1) * w.w * .62 * w.a + pvx * 1.6);
-          tx = clamp(tx, -w.w * 1.1, w.w * 1.1);
-          ty = f * w.sg * w.h * .06;
-        }
-      }
-      if (spring(w, tx, ty)) moving = true;
-      var e = ease(clamp((open - w.delay) / .3, 0, 1)), L = w.ox + e * w.w, len = (1 - e) * w.w;
-      w.dash.style.transform = 'translate3d(' + L.toFixed(1) + 'px,' + w.oy.toFixed(1) + 'px,0) scaleX(' + (1 - e).toFixed(4) + ')';
-      var a = clamp(L / w.w, 0, 1) * 100, b = clamp((L + len) / w.w, 0, 1) * 100;
-      if (a * w.w / 100 < em * .22) a = 0; if ((100 - b) * w.w / 100 < em * .22) b = 100;   // a glimpse is a piece of a letter, never a speck
-      w.tx.style.clipPath = 'polygon(0 -40%,' + a + '% -40%,' + a + '% 140%,0 140%,0 -40%,' + b + '% -40%,100% -40%,100% 140%,' + b + '% 140%,' + b + '% -40%)';
+    if (scene) {
+      scene.style.transform = 'rotateX(' + (tilt * -12).toFixed(3) + 'deg) rotateY(' + (par * 22).toFixed(3) + 'deg)';
+      scene.style.setProperty('--d', ease(clamp(open / .85, 0, 1)).toFixed(4));
     }
 
-    // the replies (A) or the rhythm wall (B)
-    var R = Math.max(150, W * (B ? .11 : .2));
+    // the cards: write every transform first, then read where each landed against its word, then open the words
+    var j, w;
+    for (j = 0; j < words.length; j++) {
+      w = words[j];
+      var lift = 0;
+      if (inside) lift = 340 * falloff(w.cx + W / 2 - mx, (w.cy + SH / 2 - my) * 1.6, Math.max(170, W * .17));
+      w.vz = (w.vz + (lift - w.oz) * w.k) * w.d; w.oz += w.vz;
+      if (Math.abs(w.vz) > .02 || Math.abs(lift - w.oz) > .1) moving = true;
+      w.e = ease(clamp((open - w.delay) / .3, 0, 1));
+      var z = w.z0 + w.oz, k = (P - z) / P;
+      w.dash.style.transform = 'translate3d(' + (-w.cx * z / P).toFixed(2) + 'px,' + (-w.cy * z / P).toFixed(2) + 'px,' + z.toFixed(1) +
+        'px) rotateX(' + (w.e * 90).toFixed(2) + 'deg) scale(' + k.toFixed(4) + ')';
+      w.dash.style.visibility = w.e > .985 ? 'hidden' : '';             // edge-on, a card is gone, not a hairline
+    }
+    for (j = 0; j < words.length; j++) { w = words[j]; w.dr = w.dash.getBoundingClientRect(); w.wr = w.tx.getBoundingClientRect(); }
+    for (j = 0; j < words.length; j++) {
+      w = words[j]; var ww = w.wr.width || 1;
+      var a = clamp(w.dr.left - w.wr.left, 0, ww), b = clamp(w.dr.right - w.wr.left, 0, ww);
+      a = Math.max(a, w.e * ww);                                        // turning edge-on, the word comes in behind it
+      if (w.e > .995) { a = ww; b = ww; }
+      if (a < em * .22) a = 0; if (ww - b < em * .22) b = ww;          // a glimpse is a piece of a letter, never a speck
+      if (b <= a) b = a;
+      var A = (a / ww * 100).toFixed(2), Bp = (b / ww * 100).toFixed(2);
+      w.tx.style.clipPath = 'polygon(0 -40%,' + A + '% -40%,' + A + '% 140%,0 140%,0 -40%,' + Bp + '% -40%,100% -40%,100% 140%,' + Bp + '% 140%,' + Bp + '% -40%)';
+    }
+
+    // the replies (A) leave to the right; the rhythm wall (B) scatters for the cursor and comes down into the city
+    var R = Math.max(150, W * .11);
     for (var i = 0; i < items.length; i++) {
       var it = items[i], tx2 = 0, ty2 = 0;
-      if (inside) {
-        var ddx = it.x + it.w / 2 - mx, ddy = it.y + it.h / 2 - my;
-        var g = B ? falloff(ddx, ddy * .28, R) : falloff(ddx, ddy * 1.6, R);
-        if (g) {
-          var side = ddx >= 0 ? 1 : -1;
-          if (B) { tx2 = g * (side * W * .012 * it.a + pvx * .8); ty2 = g * (it.sg * it.h * .3 * it.a + pvy * 1.4 * it.a); }
-          else { tx2 = g * (side * W * .05 * it.a + pvx * 2 * it.a); ty2 = g * (ddy >= 0 ? 1 : -1) * it.h * .5 * it.a; }
-        }
+      if (B && inside) {
+        var ddx = it.x + it.w / 2 - mx, ddy = it.y + it.h / 2 - my, g = falloff(ddx, ddy * .28, R);
+        if (g) { tx2 = g * ((ddx >= 0 ? 1 : -1) * W * .012 * it.a + pvx * .8); ty2 = g * (it.sg * it.h * .3 * it.a + pvy * 1.4 * it.a); }
       }
       if (spring(it, tx2, ty2)) moving = true;
-      var e2 = ease(clamp((open - it.delay) / .45, 0, 1)), p = par * (B ? -16 : 18);
+      var e2 = ease(clamp((open - it.delay) / .45, 0, 1));
       if (B) {
-        var T = it.y, h = it.h, sh = it.sky * SH * .26, T2 = boxBottom - sh;
+        var p = par * -16, T = it.y, h = it.h, sh = it.sky * SH * .19, T2 = boxBottom - sh;
         var t = T + (T2 - T) * e2, hh = h + (sh - h) * e2;
         it.el.style.transform = 'translate3d(' + (it.ox + p).toFixed(1) + 'px,' + (t - T + it.oy * (1 - e2)).toFixed(1) + 'px,0) scale(1,' + (hh / h).toFixed(4) + ')';
       } else {
-        var go = e2 * (it.dir > 0 ? W - it.x + 12 : -(it.x + it.w + 12));   // exactly off its own edge
-        it.el.style.transform = 'translate3d(' + (it.ox + p + go).toFixed(1) + 'px,' + it.oy.toFixed(1) + 'px,0)';
+        var go = e2 * (W - it.x + 12);                                    // exactly off the right edge
+        it.el.style.transform = 'translate3d(' + go.toFixed(1) + 'px,0,0)';
       }
     }
     if (moving) requestAnimationFrame(tick); else running = false;
@@ -131,10 +143,18 @@
   }
   stage.addEventListener('pointermove', function (e) { if (e.pointerType !== 'touch') point(e.clientX, e.clientY); });
   stage.addEventListener('pointerleave', function () { inside = false; lastX = null; kick(); });
-  stage.addEventListener('touchmove', function (e) { var t = e.touches[0]; if (t) point(t.clientX, t.clientY); }, { passive: true });
-  stage.addEventListener('touchend', function () { inside = false; lastX = null; kick(); }, { passive: true });
   addEventListener('scroll', kick, { passive: true });
   var rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { measure(); kick(); }, 120); });
+  // Android phones: tilting the phone moves the line of sight (iOS asks permission first, so it keeps the scroll only)
+  if (!B && window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission !== 'function' &&
+      matchMedia('(pointer: coarse)').matches) {
+    var b0 = null;
+    addEventListener('deviceorientation', function (e) {
+      if (e.gamma == null || e.beta == null) return; if (b0 === null) b0 = e.beta;
+      var nx = clamp(e.gamma / 50, -.5, .5), ny = clamp((e.beta - b0) / 50, -.5, .5);
+      if (Math.abs(nx - gx) + Math.abs(ny - gy) > .01) { gx = nx; gy = ny; kick(); }
+    });
+  }
 
   function start() { measure(); H.classList.add('live'); kick(); }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(start); else start();

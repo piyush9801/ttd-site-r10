@@ -1,0 +1,34 @@
+/* The Talent Dept. · round 10 · contrast pass (16 Oct 2026). Piyush: "it feels low on contrast overall".
+   1. Weights by the Brand Standards: Light 300 only for large display type; Regular 400 for headlines under ~48px and
+      all reading text (the book: Display Light 96–144px, Headline and Body Regular).
+   2. A real step between grounds: tan alternates with true paper, not the near-identical tan-white.
+   3. Darker secondary text, stronger hairlines.
+   4. One dark anchor at the end of every page: the footer in charcoal (the client's favourite section colour).
+   5. Black-and-white photographs with a little more punch. */
+:root{
+  --ink70:#463F36;
+  --hair:rgba(23,22,20,.38);
+  --light:#FBF9F4;
+}
+body{font-weight:400}
+.d3,.d4{font-weight:400}
+.reply .say,.foot3 .mail,.ct-mail,.city .cap .d4,.wall .cap,.lm-main a{font-weight:400}
+.pause2 .t .body.ind{color:var(--ink)}
+.nav ul a:not(.on){color:var(--ink70)!important}
+
+/* photographs */
+figure img,.dx-img img{filter:grayscale(1) contrast(1.13) brightness(1.02)}
+
+/* the shelf's open panel stands on tan now that the section is paper */
+.shelf .sp{background:var(--tan)}
+
+/* footer: charcoal, cream type, the reply line in cream with its one Signal gap */
+.foot3{background:var(--char);color:var(--cream)}
+.foot3 .reply .ln{background:var(--cream)}
+.foot3 .reply .say i{color:var(--coral)}
+.foot3 .mail{color:var(--cream);border-bottom-color:rgba(242,238,229,.4)}
+.foot3 .lk a{color:var(--cream)}
+.foot3 .soft,.foot3 .cp{color:var(--draft)}
+/* text on Signal reads in Ink (paper on coral is only 3.7:1); the phone list marks booking by weight, not colour */
+.sp.sig .sp-b{color:var(--ink)}
+.wkm .ml li:first-child span:last-child{color:var(--ink);font-weight:500}
