@@ -1285,3 +1285,18 @@ p{text-wrap:pretty}
 .l3-l{padding-top:2.4vh}
 .l3-w.r1{margin-top:4.2vh}
 .l3-w.r3{padding-bottom:8.4vh}
+
+/* ---- The hallway, its own form (Piyush: "the same design repeats down"): one cinematic photograph across the full
+   width, uncropped, the line in cream on the dark left wall, clear of the door edge. No sheets, no planes. */
+.hx{position:relative;background:#1E1D1B;color:var(--cream)}
+.hx-p{margin:0;line-height:0}
+.hx-p img{display:block;width:100%;aspect-ratio:16/9;height:auto;object-fit:cover;filter:grayscale(1) contrast(1.13)}
+.hx-t{position:absolute;left:var(--m);bottom:clamp(40px,5.6vw,100px);width:min(25.5vw,440px)}
+.hx-h{font-size:clamp(30px,3vw,58px);line-height:1.05;letter-spacing:-.022em;font-weight:300;text-wrap:balance}
+.hx-h b{font-weight:500;color:#fff}
+.hx-b{margin-top:1.5em;font-size:var(--small);line-height:1.55;color:rgba(242,238,229,.82);text-wrap:pretty}
+.hx-t .u{display:inline-block;margin-top:1.8em;color:var(--cream);border-color:rgba(242,238,229,.55);text-decoration:none}
+@media (max-width:760px){
+  .hx-p img{aspect-ratio:4/5;object-position:58% 50%}
+  .hx-t{position:static;width:auto;padding:36px var(--m) 72px}
+  .hx-h{font-size:9vw} }
